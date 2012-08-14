@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %} {% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="author" content="Bharad">
+    
+    {% block defaulthead %}
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/master.css') }}">
+
+      <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+      <script src="{{ url_for('static', filename='js/master.js') }}" type="text/javascript" charset="utf-8"></script>
+      
+      <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+          // $('.topbar .pull-right').dropdown();
+          $('.alert-message a.close').click(close_notification_alert);
+         });
+      </script>
+
+       <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+       <!--[if lt IE 9]>
+         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+       <![endif]-->
+      
+        <style type="text/css" media="screen">
+          .show-grid [class*="span"] {
+              background: none repeat scroll 0 0 #EEEEEE;
+              border-radius: 3px 3px 3px 3px;
+              line-height: 30px;
+              min-height: 30px;
+              text-align: center;
+          }
+        </style>
+    {% endblock %}
+    
+    {% block head %}
+      
+    {% endblock %}
+    
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+  </head>
+
+  <body class="{% block bodyclass %}{% endblock %}">
+    
+    {% block body_top %}
+      
+    {% endblock %}
+    
+    <div class="container">
+
+      <div class="content">
+        <div class="row">
+          <div class="span12">
+            
+            {% block page_title %}
+              
+            {% endblock %}
+            
+          </div>
+        </div>
+        <div class="row">
+          {% block content %}
+
+            
+          {% endblock %}
+        </div>
+      </div>
+
+      <footer>
+        <p>&copy; Slides 2012</p>
+
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
