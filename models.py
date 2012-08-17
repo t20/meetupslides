@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 import redis
+# import settings
+
+'''
+    source file copied from https://github.com/pims/retwis-py/blob/master/domain.py
+'''
+
 
 class Model(object):
   def __init__(self, id):
