@@ -39,6 +39,11 @@ def post(post_id):
     return render_template('post.html', post=post)
 
 
+@app.route('/search')
+def search():
+    pass
+
+
 # TODO - research flask login
 @app.route('/login')
 def login():
