@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="row">
+  {{ post.title }}
+  {{ post.author }}
+  <ul>
+  {% for file in post.files %}
+    <li><a href="{{ file.url }}">{{ file.name }}</a></li>
+  {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
