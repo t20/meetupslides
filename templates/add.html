@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>Add new slides</p>
+  
+  <div class="row">
+    
+    <form class="form-horizontal">
+      <fieldset>
+        <div class="control-group">
+          <label for="input01" class="control-label" rip-style-bordercolor-backup="" style="" rip-style-borderstyle-backup="" rip-style-borderwidth-backup="">Text input</label>
+          <div class="controls">
+            <input type="text" id="input01" class="input-xlarge">
+            <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="fileInput" class="control-label">File input</label>
+          <div class="controls">
+            <input type="file" id="fileInput" class="input-file">
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="textarea" class="control-label">Textarea</label>
+          <div class="controls">
+            <textarea rows="3" id="textarea" class="input-xlarge"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Save changes</button>
+          <button class="btn">Cancel</button>
+        </div>
+      </fieldset>
+    </form>
+    
+  </div>
+  
+{% endblock %}

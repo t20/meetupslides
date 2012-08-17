@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <div class="control-group">
+    <form action="/search" method="POST" accept-charset="utf-8">
+      <input type="text" name="q" value="" id="q" class="input-xlarge"/>
+      <p><input type="submit" value="Search"/></p>
+      <p>Search for slides. E.g. Flask</p>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
