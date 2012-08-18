@@ -44,6 +44,11 @@ def search():
     pass
 
 
+@app.route('/user/<user_id>')
+def user(user_id):
+    pass
+
+
 # TODO - research flask login
 @app.route('/login')
 def login():
