@@ -69,7 +69,7 @@ class User(Model):
       return [Post(int(post_id)) for post_id in posts]
     return []
 
-  def add_post(self,post):
+  def add_post(self, post):
     r.lpush("user:id:%s:posts" % self.id, post.id)
     r.sadd('posts:id', post.id)
 

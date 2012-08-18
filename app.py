@@ -20,7 +20,7 @@ def index():
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    if request.method == 'GET'
+    if request.method == 'GET':
         return render_template('add.html')
     # else - POST
     # TODO look into flask wtf
