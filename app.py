@@ -24,6 +24,10 @@ def meetup(meetup_id):
     posts = get_posts(meetup_id)
     return render_template('meetup.html', meetup=meetup, posts=posts)
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
@@ -32,7 +36,15 @@ def add():
     # else - POST
     # TODO look into flask wtf
     # get post data and add to database
-    post_id = None
+    title = request.form['title']
+    desc = request.form['desc']
+    slides = request.files['slides']
+    user_id = request.form.get('user_id', 0)
+    meetup_id = request.form.get('meetup_id', 0)
+    p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id)
+    saved = p.save()
+    post_id = p.id
+    flash('Add new post.')
     return redirect(url_for('post', post_id=post_id))
 
 
