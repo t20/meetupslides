@@ -1,6 +1,23 @@
-from flask import Flask
-from flask import render_template
+### Meetupslides
+### https://github.com/teraom/meetupslides
+
+from flask import Flask, render_template, request, flash
+import redis
+
+import settings
+
+################################
+####### init and CONFIG ########
+################################
+
 app = Flask(__name__)
+app.config.from_object('settings.Config')
+
+REDIS_HOST = app.config['REDIS_HOST']
+REDIS_PORT = app.config['REDIS_PORT']
+REDIS_DB = app.config['REDIS_DB']
+
+settings.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
 
 
 ################################
