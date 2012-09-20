@@ -18,6 +18,13 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/meetup/<meetup_id>')
+def meetup(meetup_id):
+    meetup = get_meetup(meetup_id)
+    posts = get_posts(meetup_id)
+    return render_template('meetup.html', meetup=meetup, posts=posts)
+
+
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'GET':
