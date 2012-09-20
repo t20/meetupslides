@@ -24,6 +24,12 @@ settings.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
 ####### helper methods #########
 ################################
 
+@app.route('/redis_test')
+def redis_test():
+    x = settings.r.get('uid')
+    return "Value is {0}".format(x)
+
+
 
 ################################
 ####### All router methods #####
