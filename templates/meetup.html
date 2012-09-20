@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ meetup.name }} - {{ meetup.city }}
+
+<h3>Recent meetups:</h3>
+
+{% include "_posts.html" %}
+
+{% endblock content %}
