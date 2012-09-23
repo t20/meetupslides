@@ -22,3 +22,18 @@ class User(models.Model):
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
 
+
+def get_meetup(meetup_id):
+  return Meetup.objects.get_by_id(meetup_id)
+
+
+def get_meetups():
+  return Meetup.objects.all()
+
+
+def get_posts(meetup_id):
+  return Post.objects.filter(meetup_id=meetup_id)
+
+
+def get_post(post_id):
+  return Post.objects.get_by_id(post_id)
