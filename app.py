@@ -38,7 +38,9 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    posts = get_recent_posts()
+    return render_template('index.html', posts=posts)
+
 
 
 @app.route('/meetup/<meetup_id>')
