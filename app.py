@@ -26,6 +26,10 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'ppt', 'pptx', 'zip', 'tar', 'rar'])
 ####### helper methods #########
 ################################
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 
 ################################
 ####### All router methods #####
@@ -42,11 +46,6 @@ def meetup(meetup_id):
     meetup = get_meetup(meetup_id)
     posts = get_posts(meetup_id)
     return render_template('meetup.html', meetup=meetup, posts=posts)
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
 @app.route('/add', methods=['GET', 'POST'])
