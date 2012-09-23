@@ -1,4 +1,4 @@
-from redisco import Model
+from redisco import models
 
 class Meetup(models.Model):
   name = models.Attribute(required=True)

@@ -1,10 +1,11 @@
 ### Meetupslides
 ### https://github.com/teraom/meetupslides
 
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, redirect, url_for, flash
 import redis
 
 import settings
+from models import *
 
 ################################
 ####### init and CONFIG ########
