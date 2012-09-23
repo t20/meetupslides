@@ -46,36 +46,46 @@
 
   <body class="{% block bodyclass %}{% endblock %}">
     
-    {% block body_top %}
-      
-    {% endblock %}
-    
     <div class="container">
 
-      <div class="content">
-        <div class="row">
-          <div class="span12">
-            
-            {% block page_title %}
-              
-            {% endblock %}
-            
+    
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a href="/" class="brand">Meetup Slides</a>
+          <div id="main-menu" class="nav-collapse">
+           <ul id="main-menu-left" class="nav">
+    	       <li><a href="/meetups" id="swatch-link">Meetups</a></li>
+    	       <li><a href="/contact" id="swatch-link">Contact</a></li>
+    	       <li><a href="/jobs" id="swatch-link">Jobs</a></li>
+    	     </ul>
           </div>
         </div>
-        <div class="row">
-          {% block content %}
-
-            
-          {% endblock %}
-        </div>
       </div>
+    </div>
 
-      <footer>
-        <p>&copy; Slides 2012</p>
 
-      </footer>
+     <section id="typography">
+       <div class="page-header">
+         {% block page_title %}
 
-    </div> <!-- /container -->
+          {% endblock %}
+       </div>
 
+       <!-- Headings & Paragraph Copy -->
+       <div class="row">
+
+         {% block content %}
+
+         {% endblock %}
+
+       </div>
+     </section>
+
+     <footer>
+       <p>&copy; Slides 2012</p>
+     </footer>
+
+    </div>
   </body>
 </html>
