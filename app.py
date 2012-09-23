@@ -20,7 +20,7 @@ REDIS_PORT = app.config['REDIS_PORT']
 REDIS_DB = app.config['REDIS_DB']
 
 settings.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
-
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'ppt', 'pptx', 'zip', 'tar', 'rar'])
 
 ################################
 ####### helper methods #########
@@ -43,6 +43,7 @@ def meetup(meetup_id):
     posts = get_posts(meetup_id)
     return render_template('meetup.html', meetup=meetup, posts=posts)
 
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -51,17 +52,19 @@ def allowed_file(filename):
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'GET':
-        return render_template('add.html')
+        meetups = get_meetups()
+        return render_template('add.html', meetups=meetups)
     # else - POST
     # TODO look into flask wtf
     # get post data and add to database
-    title = request.form['title']
-    desc = request.form['desc']
+    title = request.form.get('title', 'No Title')
+    desc = request.form.get('desc', 'No desc')
     slides = request.files['slides']
     user_id = request.form.get('user_id', 0)
-    meetup_id = request.form.get('meetup_id', 0)
+    meetup_id = int(request.form.get('meetup_id', 0))
     p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id)
     saved = p.save()
+    # print 'Post saved?', saved
     post_id = p.id
     flash('Add new post.')
     return redirect(url_for('post', post_id=post_id))
