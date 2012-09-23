@@ -2,7 +2,7 @@ class Config(object):
     """Default config"""
     DEBUG = True
 
-    APP_SECRET_KEY = ''
+    APP_SECRET_KEY = '\x01\xd2+\x1c\x9b>\xdf\x85\xe65z\xba\xaa\x89\xfc\x18\xa4D\xb3\xe2\xa8\x1fP\x8d'
     
     REDIS_DB = 0
     REDIS_PORT = 6379
