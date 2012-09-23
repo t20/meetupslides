@@ -42,6 +42,11 @@ def index():
     return render_template('index.html', posts=posts)
 
 
+@app.route('/meetups')
+def meetups():
+    meetups = get_meetups()
+    return render_template('meetups.html', meetups=meetups)
+
 
 @app.route('/meetup/<meetup_id>')
 def meetup(meetup_id):

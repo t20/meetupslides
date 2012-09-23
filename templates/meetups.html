@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3>Meetups</h3>
+
+  {% for meetup in meetups %}
+    <a href="/meetup/{{ meetup.id }}">{{ meetup.city }} - {{ meetup.name }}</a>
+  {% endfor %}
+
+{% endblock content %}
