@@ -7,6 +7,8 @@ import redis
 import settings
 from models import *
 
+from flask.ext.admin import Admin
+
 ################################
 ####### init and CONFIG ########
 ################################
@@ -14,6 +16,7 @@ from models import *
 app = Flask(__name__)
 app.config.from_object('settings.Config')
 app.secret_key = app.config['APP_SECRET_KEY']
+admin = Admin(app)
 
 REDIS_HOST = app.config['REDIS_HOST']
 REDIS_PORT = app.config['REDIS_PORT']
