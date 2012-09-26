@@ -42,3 +42,8 @@ def get_post(post_id):
 
 def get_recent_posts(limit=10):
     return Post.objects.all().limit(limit).order("-created")
+
+
+def get_jobs():
+    return []
+    # return Job.objects.all()
