@@ -11,6 +11,7 @@ import settings
 from models import *
 
 from flask.ext.admin import Admin
+from admin import *
 
 ################################
 ####### init and CONFIG ########
@@ -19,8 +20,11 @@ from flask.ext.admin import Admin
 app = Flask(__name__)
 app.config.from_object('settings.Config')
 app.secret_key = app.config['APP_SECRET_KEY']
-admin = Admin(app)
+# admin = Admin(app, index_view=Dashboard)
+admin = Admin(app, name='Meetup Slides Admin')
+# admin.index_view = Dashboard
 
+# Load from config
 REDIS_HOST = app.config['REDIS_HOST']
 REDIS_PORT = app.config['REDIS_PORT']
 REDIS_DB = app.config['REDIS_DB']
@@ -30,6 +34,9 @@ BUCKET_NAME = app.config['BUCKET_NAME']
 
 settings.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'ppt', 'pptx', 'zip', 'tar', 'rar'])
+
+# Admin views
+admin.add_view(Dashboard(name='Dashboard'))
 
 ################################
 ####### helper methods #########

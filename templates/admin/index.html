@@ -1,0 +1,41 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+
+<h3>The Numbers:</h3>
+    
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Meetups</th>
+          <th>Posts</th>
+          <th>Jobs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Overall</td>
+          <td>{{ x }}</td>
+          <td>{{ y }}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Past 7 days</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Past 30 days</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+<h3>Recent Posts</h3>
+    {% include "_posts.html" %}
+
+{% endblock %}
