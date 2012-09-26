@@ -4,10 +4,11 @@
 {% block content %}
 
 <div class="row">
-  {{ post.title }}
-  {{ post.author }}
+  <h2>{{ post.title }}</h2>
+  <i>{{ post.author }}</i>
+  <div>{{ post.desc }}</div>
   <ul>
-  {% for file in post.files %}
+  {% for file in post.slides %}
     <li><a href="{{ file.url }}">{{ file.name }}</a></li>
   {% endfor %}
   </ul>
