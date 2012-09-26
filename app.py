@@ -48,13 +48,20 @@ def upload_to_s3(filename, post_id, ext):
     k.key = 'slides_{0}.{1}'.format(post_id, ext)
     print 'key:', k.key
     k.set_contents_from_filename(filename)
+    k.make_public()
     print 'Done upload'
+    filename = get_s3_filename(post_id, ext)
+    return filename
+
+
+def get_s3_filename(post_id, ext):
+    return 'https://s3.amazonaws.com/{0}/post.{1}.{2}'.format(BUCKET_NAME, post_id, ext)
+    
 
 
 ################################
 ####### All router methods #####
 ################################
-
 
 @app.route('/')
 def index():
@@ -109,8 +116,10 @@ def add():
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         slides.save(filepath)
         ext = filename.rsplit('.', 1)[1]
-        upload_to_s3(filepath, post_id, ext)
+        s3_filename = upload_to_s3(filepath, post_id, ext)
         os.remove(filepath)
+        p.slides = [s3_filename]
+        p.save()
         # except Exception as e:
         #     print 'Exception'
     # print 'Post saved?', saved
