@@ -10,11 +10,14 @@
         <div class="control-group">
           <label for="input01" class="control-label" rip-style-bordercolor-backup="" style="" rip-style-borderstyle-backup="" rip-style-borderwidth-backup="">Title</label>
           <div class="controls">
-            <select name="meetup_id">
+            <select name="meetup_id" id="meetup_id">
               {% for meetup in meetups %}
                 <option value="{{ meetup.id }}">{{ meetup.city }} - {{ meetup.name }}</option>
               {% endfor %}
-            </select>
+            </select> - <a href="#" id="show_add_meetup">Add Meetup</a>
+            <div id="add_meetup_wrapper" style="display:none;">
+              {% include "_meetup.html" %}
+            </div>
           </div>
         </div>
         <div class="control-group">

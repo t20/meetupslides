@@ -15,8 +15,10 @@
       
       <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
+          $('#show_add_meetup').click(show_add_meetup);
+          $('#add_meetup_wrapper button').click(add_meetup);
           // $('.topbar .pull-right').dropdown();
-          $('.alert-message a.close').click(close_notification_alert);
+          // $('.alert-message a.close').click(close_notification_alert);
          });
       </script>
 
@@ -48,13 +50,13 @@
     
     <div class="container">
 
-    
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a href="/" class="brand">Meetup Slides</a>
           <div id="main-menu" class="nav-collapse">
            <ul id="main-menu-left" class="nav">
+             <li><a href="/add" id="swatch-link">Add</a></li>
     	       <li><a href="/meetups" id="swatch-link">Meetups</a></li>
     	       <li><a href="/contact" id="swatch-link">Contact</a></li>
     	       <li><a href="/jobs" id="swatch-link">Jobs</a></li>
@@ -63,7 +65,6 @@
         </div>
       </div>
     </div>
-
 
      <section id="typography">
        <div class="page-header">

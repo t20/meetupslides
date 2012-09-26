@@ -1,7 +1,7 @@
 ### Meetupslides
 ### https://github.com/teraom/meetupslides
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import redis
 import os
 from boto.s3.connection import S3Connection
@@ -66,6 +66,20 @@ def index():
 def meetups():
     meetups = get_meetups()
     return render_template('meetups.html', meetups=meetups)
+
+
+@app.route('/meetup/add', methods=['POST'])
+def meetup_add():
+    print 'I am in meetup_add'
+    name = request.form.get('meetup_name', 'No Name')
+    city = request.form.get('meetup_city', 'No City')
+    m = Meetup(name=name, city=city)
+    saved = m.save()
+    if saved:
+        print 'Saved a new meetup'
+        return jsonify(name=name, city=city, id=m.id)
+    else:
+        print 'cpould not save meetup'
 
 
 @app.route('/meetup/<meetup_id>')
