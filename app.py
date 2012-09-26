@@ -174,7 +174,7 @@ def profile():
 
 
 @app.route('/contact', methods=['GET', 'POST'])
-def contact(post_id):
+def contact():
     if request.method == 'GET':
         return render_template('contact.html')
 
