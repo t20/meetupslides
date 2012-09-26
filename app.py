@@ -103,9 +103,10 @@ def add():
         return render_template('add.html', meetups=meetups)
     title = request.form.get('title', 'No Title')
     desc = request.form.get('desc', 'No desc')
+    author = request.form.get('author', 'A developer')
     user_id = request.form.get('user_id', 0)
     meetup_id = int(request.form.get('meetup_id', 0))
-    p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id)
+    p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id, author=author)
     saved = p.save()
     post_id = p.id
     # store s3 file path
