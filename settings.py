@@ -8,6 +8,11 @@ class Config(object):
     REDIS_PORT = 6379
     REDIS_HOST = 'localhost'
     
+    UPLOAD_FOLDER = '/tmp/'
+    AWS_KEY = 'AKIAILGFFUGZMMIMHHHA'
+    AWS_SECRET_KEY = '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'
+    BUCKET_NAME = 'slides_dev'
+    
     r = None    
 
 class ProductionConfig(Config):

@@ -1,8 +1,11 @@
 ### Meetupslides
 ### https://github.com/teraom/meetupslides
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import redis
+import os
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
 
 import settings
 from models import *
@@ -21,6 +24,9 @@ admin = Admin(app)
 REDIS_HOST = app.config['REDIS_HOST']
 REDIS_PORT = app.config['REDIS_PORT']
 REDIS_DB = app.config['REDIS_DB']
+AWS_KEY = app.config['AWS_KEY']
+AWS_SECRET_KEY = app.config['AWS_SECRET_KEY']
+BUCKET_NAME = app.config['BUCKET_NAME']
 
 settings.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'ppt', 'pptx', 'zip', 'tar', 'rar'])
@@ -31,13 +37,34 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'ppt', 'pptx', 'zip', 'tar', 'rar'])
 
 def allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+        filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+def secure_filename(filename):
+    return filename
+
+
+def upload_to_s3(filename, post_id, ext):
+    conn = S3Connection(AWS_KEY, AWS_SECRET_KEY)
+    bucket = conn.get_bucket(BUCKET_NAME)
+    k = Key(bucket)
+    k.key = 'slides_{0}.{1}'.format(post_id, ext)
+    print 'key:', k.key
+    k.set_contents_from_filename(filename)
+    k.make_public()
+    print 'Done upload'
+    filename = get_s3_filename(post_id, ext)
+    return filename
+
+
+def get_s3_filename(post_id, ext):
+    return 'https://s3.amazonaws.com/{0}/post.{1}.{2}'.format(BUCKET_NAME, post_id, ext)
+    
 
 
 ################################
 ####### All router methods #####
 ################################
-
 
 @app.route('/')
 def index():
@@ -49,6 +76,20 @@ def index():
 def meetups():
     meetups = get_meetups()
     return render_template('meetups.html', meetups=meetups)
+
+
+@app.route('/meetup/add', methods=['POST'])
+def meetup_add():
+    print 'I am in meetup_add'
+    name = request.form.get('meetup_name', 'No Name')
+    city = request.form.get('meetup_city', 'No City')
+    m = Meetup(name=name, city=city)
+    saved = m.save()
+    if saved:
+        print 'Saved a new meetup'
+        return jsonify(name=name, city=city, id=m.id)
+    else:
+        print 'cpould not save meetup'
 
 
 @app.route('/meetup/<meetup_id>')
@@ -63,18 +104,29 @@ def add():
     if request.method == 'GET':
         meetups = get_meetups()
         return render_template('add.html', meetups=meetups)
-    # else - POST
-    # TODO look into flask wtf
-    # get post data and add to database
     title = request.form.get('title', 'No Title')
     desc = request.form.get('desc', 'No desc')
-    slides = request.files['slides']
+    author = request.form.get('author', 'A developer')
     user_id = request.form.get('user_id', 0)
     meetup_id = int(request.form.get('meetup_id', 0))
-    p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id)
+    p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id, author=author)
     saved = p.save()
-    # print 'Post saved?', saved
     post_id = p.id
+    # store s3 file path
+    slides = request.files['slides']
+    if slides and allowed_file(slides.filename):
+        filename = secure_filename(slides.filename)
+        # try:
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        slides.save(filepath)
+        ext = filename.rsplit('.', 1)[1]
+        s3_filename = upload_to_s3(filepath, post_id, ext)
+        os.remove(filepath)
+        p.slides = [s3_filename]
+        p.save()
+        # except Exception as e:
+        #     print 'Exception'
+    # print 'Post saved?', saved
     flash('Add new post.')
     return redirect(url_for('post', post_id=post_id))
 
@@ -125,7 +177,7 @@ def profile():
 
 
 @app.route('/contact', methods=['GET', 'POST'])
-def contact(post_id):
+def contact():
     if request.method == 'GET':
         return render_template('contact.html')
 

@@ -2,9 +2,11 @@
 
 {% block content %}
   <h3>Meetups</h3>
-
+  
+  <ul>
   {% for meetup in meetups %}
-    <a href="/meetup/{{ meetup.id }}">{{ meetup.city }} - {{ meetup.name }}</a>
+    <li><a href="/meetup/{{ meetup.id }}">{{ meetup.city }} - {{ meetup.name }}</a></li>
   {% endfor %}
+  </ul>
 
 {% endblock content %}
