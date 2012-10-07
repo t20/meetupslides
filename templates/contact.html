@@ -1,5 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-To be built shortly.
+<h3>Contact</h3>
+<form class="bs-docs-example form-horizontal">
+  <div class="control-group">
+    <label for="inputEmail" class="control-label">Name</label>
+    <div class="controls">
+      <input type="text" placeholder="Name" id="contact_name" name="name">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="inputEmail" class="control-label">Email</label>
+    <div class="controls">
+      <input type="text" placeholder="Email" id="contact_email" name="email">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="inputEmail" class="control-label">Subject</label>
+    <div class="controls">
+      <input  class="input-xxlarge" type="text" placeholder="Subject" id="contact_subject" name="subject">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="inputEmail" class="control-label">Message</label>
+    <div class="controls">
+      <textarea rows="8" class="input-xxlarge" name="message"></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button class="btn" type="submit">Send</button>
+    </div>
+  </div>
+</form>
 {% endblock content %}

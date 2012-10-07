@@ -24,6 +24,15 @@ class User(models.Model):
   updated = models.DateTimeField(auto_now=True)
 
 
+class Message(models.Model):
+  name = models.Attribute(required=True)
+  email = models.Attribute(required=True)
+  subject = models.Attribute(required=True)
+  message = models.Attribute(required=True)
+  created = models.DateTimeField(auto_now_add=True)
+  updated = models.DateTimeField(auto_now=True)
+
+
 def get_meetup(meetup_id):
   return Meetup.objects.get_by_id(meetup_id)
 

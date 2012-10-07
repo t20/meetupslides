@@ -187,7 +187,17 @@ def profile():
 def contact():
     if request.method == 'GET':
         return render_template('contact.html')
-
+    name = request.form.get('name', None)
+    email = request.form.get('email', None)
+    subject = request.form.get('subject', None)
+    message = request.form.get('message', None)
+    m = Message(name=name, email=email, subject=subject, message=message)
+    saved = m.save()
+    if saved:
+      flash('Thanks! We ll get back to you shortly')
+    else:
+      flash('Something went wrong! Could not send message.')
+    return redirect(url_for(contact))
 
 @app.route('/jobs')
 def jobs():
