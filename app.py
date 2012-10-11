@@ -33,8 +33,9 @@ AWS_KEY = app.config['AWS_KEY']
 AWS_SECRET_KEY = app.config['AWS_SECRET_KEY']
 BUCKET_NAME = app.config['BUCKET_NAME']
 
-redis_url = urlparse.urlparse(os.environ.get('REDISTOGO_URL', None))
+redis_url = os.environ.get('REDISTOGO_URL', None)
 if redis_url:
+    redis_url = urlparse.urlparse(redis_url)
     settings.r = redis.Redis(host=redis_url.hostname, port=redis_url.port, db=0, password=redis_url.password)
 else:
     settings.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
