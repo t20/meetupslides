@@ -206,6 +206,7 @@ def contact():
       flash('Something went wrong! Could not send message.')
     return redirect(url_for(contact))
 
+
 @app.route('/jobs')
 def jobs():
     jobs = get_jobs()
