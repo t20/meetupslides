@@ -3,6 +3,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import redis
+import redisco
 import os
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
@@ -36,9 +37,9 @@ BUCKET_NAME = app.config['BUCKET_NAME']
 redis_url = os.environ.get('REDISTOGO_URL', None)
 if redis_url:
     redis_url = urlparse.urlparse(redis_url)
-    settings.r = redis.Redis(host=redis_url.hostname, port=redis_url.port, db=0, password=redis_url.password)
+    redisco.connection_setup(host=redis_url.hostname, port=redis_url.port, db=0, password=redis_url.password)
 else:
-    settings.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+    redisco.connection_setup(host='localhost', port=6379, db=0)
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'ppt', 'pptx', 'zip', 'tar', 'rar'])
 
