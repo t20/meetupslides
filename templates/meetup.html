@@ -2,9 +2,11 @@
 
 {% block content %}
 
-{{ meetup.name }} - {{ meetup.city }}
+<h2>{{ meetup.name }} - {{ meetup.city }}</h2>
 
-<h3>Recent meetups:</h3>
+<a href="/add?meetup_id={{ meetup.id }}"><h4>Add Slide:</h4></a>
+
+<h3>Recent slides:</h3>
 
 {% include "_posts.html" %}
 

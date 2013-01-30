@@ -121,7 +121,8 @@ def meetup(meetup_id):
 def add():
     if request.method == 'GET':
         meetups = get_meetups()
-        return render_template('add.html', meetups=meetups)
+        selected_meetup_id = request.args.get('meetup_id', 0)
+        return render_template('add.html', meetups=meetups, selected_meetup_id=selected_meetup_id)
     title = request.form.get('title', 'No Title')
     desc = request.form.get('desc', 'No desc')
     author = request.form.get('author', 'A developer')

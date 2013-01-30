@@ -12,7 +12,9 @@
           <div class="controls">
             <select name="meetup_id" id="meetup_id">
               {% for meetup in meetups %}
-                <option value="{{ meetup.id }}">{{ meetup.city }} - {{ meetup.name }}</option>
+                <option value="{{ meetup.id }}" {% if meetup.id == selected_meetup_id %}
+                  selected="selected"
+                {% endif %}>{{ meetup.city }} - {{ meetup.name }}</option>
               {% endfor %}
             </select> - <a href="#" id="show_add_meetup">Add Meetup</a>
             <div id="add_meetup_wrapper" style="display:none;">
