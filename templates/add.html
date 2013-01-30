@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
+{% block head %}
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+      $('#show_add_meetup').click(show_add_meetup);
+      $('#add_meetup_wrapper button').click(add_meetup);
+      // $('.topbar .pull-right').dropdown();
+      // $('.alert-message a.close').click(close_notification_alert);
+     });
+  </script>
+{% endblock %}
+
 {% block content %}
   <h3>Add new slides</h3>
   
