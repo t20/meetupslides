@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<img src="{{ meetup.logo }}" alt="{{ meetup.name }} - {{ meetup.city }}">
+
 <h2>{{ meetup.name }} - {{ meetup.city }}</h2>
 
 <a href="/add?meetup_id={{ meetup.id }}"><h4>Add Slide:</h4></a>

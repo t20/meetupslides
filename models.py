@@ -3,6 +3,9 @@ from redisco import models
 class Meetup(models.Model):
   name = models.Attribute(required=True)
   city = models.Attribute(required=True)
+  desc = models.Attribute(required=False)
+  website = models.Attribute(required=False)
+  logo = models.Attribute(required=False)
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
 

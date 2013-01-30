@@ -12,6 +12,7 @@ class Config(object):
     AWS_KEY = 'AKIAILGFFUGZMMIMHHHA'
     AWS_SECRET_KEY = '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'
     BUCKET_NAME = 'slides_dev'
+    LOGOS_BUCKET_NAME = 'meetupslides_logos'
     
     r = None    
 

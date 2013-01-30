@@ -32,6 +32,7 @@ REDIS_DB = app.config['REDIS_DB']
 AWS_KEY = app.config['AWS_KEY']
 AWS_SECRET_KEY = app.config['AWS_SECRET_KEY']
 BUCKET_NAME = app.config['BUCKET_NAME']
+LOGOS_BUCKET_NAME = app.config['LOGOS_BUCKET_NAME']
 
 redis_url = os.environ.get('REDISTOGO_URL', None)
 if redis_url:
@@ -40,7 +41,8 @@ if redis_url:
 else:
     settings.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'ppt', 'pptx', 'zip', 'tar', 'rar'])
+ALLOWED_EXTENSIONS = set(('txt', 'pdf', 'ppt', 'pptx', 'zip', 'tar', 'rar'))
+ALLOWED_IMAGE_EXTENSIONS = set(('png', 'jpg'))
 
 # Admin views
 admin.add_view(Dashboard(name='Dashboard'))
@@ -49,31 +51,30 @@ admin.add_view(Dashboard(name='Dashboard'))
 ####### helper methods #########
 ################################
 
-def allowed_file(filename):
+def allowed_file(filename, extensions):
     return '.' in filename and \
-        filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+        filename.rsplit('.', 1)[1] in extensions
 
 
 def secure_filename(filename):
     return filename
 
 
-def upload_to_s3(filename, post_id, ext):
+def upload_to_s3(filename, bucket_name, object_id, ext, object_prefix='object'):
     conn = S3Connection(AWS_KEY, AWS_SECRET_KEY)
-    bucket = conn.get_bucket(BUCKET_NAME)
+    bucket = conn.get_bucket(bucket_name)
     k = Key(bucket)
-    k.key = 'slides_{0}.{1}'.format(post_id, ext)
+    k.key = '{0}_{1}.{2}'.format(object_prefix, object_id, ext)
     print 'key:', k.key
     k.set_contents_from_filename(filename)
     k.make_public()
     print 'Done upload'
-    filename = get_s3_filename(post_id, ext)
+    filename = get_s3_filename(bucket_name, k.key)
     return filename
 
 
-def get_s3_filename(post_id, ext):
-    return 'https://s3.amazonaws.com/{0}/post.{1}.{2}'.format(BUCKET_NAME, post_id, ext)
-    
+def get_s3_filename(bucket_name, key):
+    return 'https://s3.amazonaws.com/{0}/{1}'.format(bucket_name, key)
 
 
 ################################
@@ -98,9 +99,20 @@ def meetup_add():
         return render_template('add_meetup.html')
     name = request.form.get('meetup_name', 'No Name')
     city = request.form.get('meetup_city', 'No City')
+    desc = request.args.get('desc', '')
+    website = request.args.get('website', '')
     ajax = request.form.get('ajax', 0)
-    m = Meetup(name=name, city=city)
+    m = Meetup(name=name, city=city, desc=desc, website=website)
     saved = m.save()
+    logo = request.files['logo']
+    if logo and allowed_file(logo.filename, ALLOWED_IMAGE_EXTENSIONS):
+        filename = secure_filename(logo.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        logo.save(filepath)
+        ext = filename.rsplit('.', 1)[1]
+        s3_filename = upload_to_s3(filepath, LOGOS_BUCKET_NAME, m.id, ext, object_prefix='logo')
+        m.logo = s3_filename
+        m.save()
     if not ajax:
         return redirect(url_for('meetup', meetup_id=m.id))
     # if this is an ajax call, return json response
@@ -133,13 +145,13 @@ def add():
     post_id = p.id
     # store s3 file path
     slides = request.files['slides']
-    if slides and allowed_file(slides.filename):
+    if slides and allowed_file(slides.filename, ALLOWED_EXTENSIONS):
         filename = secure_filename(slides.filename)
         # try:
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         slides.save(filepath)
         ext = filename.rsplit('.', 1)[1]
-        s3_filename = upload_to_s3(filepath, post_id, ext)
+        s3_filename = upload_to_s3(filepath, BUCKET_NAME, post_id, ext, object_prefix='slide')
         os.remove(filepath)
         p.slides = [s3_filename]
         p.save()
