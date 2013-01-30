@@ -3,6 +3,8 @@
 {% block content %}
   <h3>Meetups</h3>
   
+  <a href="/meetup/add">Add Meetup</a>
+
   <ul>
   {% for meetup in meetups %}
     <li><a href="/meetup/{{ meetup.id }}">{{ meetup.city }} - {{ meetup.name }}</a></li>

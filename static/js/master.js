@@ -6,7 +6,7 @@ var show_add_meetup = function(event) {
 var add_meetup = function() {
     var meetup_name = $('#meetup_name', $(this).parent()).val();
     var meetup_city = $('#meetup_city', $(this).parent()).val();
-    $.post("/meetup/add", { meetup_name: meetup_name, meetup_city: meetup_city },
+    $.post("/meetup/add", { ajax:1, meetup_name: meetup_name, meetup_city: meetup_city },
         function(data) {
             select_meetup(data);
         });

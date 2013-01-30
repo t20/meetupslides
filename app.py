@@ -92,18 +92,22 @@ def meetups():
     return render_template('meetups.html', meetups=meetups)
 
 
-@app.route('/meetup/add', methods=['POST'])
+@app.route('/meetup/add', methods=['GET', 'POST'])
 def meetup_add():
-    print 'I am in meetup_add'
+    if request.method == 'GET':
+        return render_template('add_meetup.html')
     name = request.form.get('meetup_name', 'No Name')
     city = request.form.get('meetup_city', 'No City')
+    ajax = request.form.get('ajax', 0)
     m = Meetup(name=name, city=city)
     saved = m.save()
+    if not ajax:
+        return redirect(url_for('meetup', meetup_id=m.id))
+    # if this is an ajax call, return json response
     if saved:
-        print 'Saved a new meetup'
         return jsonify(name=name, city=city, id=m.id)
     else:
-        print 'cpould not save meetup'
+        return jsonify(error=True)
 
 
 @app.route('/meetup/<meetup_id>')
