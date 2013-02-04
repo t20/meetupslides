@@ -224,6 +224,11 @@ def contact():
     return redirect(url_for(contact))
 
 
+@app.route('/about')
+def about():
+	return render_template('about.html')
+
+
 @app.route('/jobs')
 def jobs():
     jobs = get_jobs()
