@@ -65,10 +65,10 @@ def upload_to_s3(filename, bucket_name, object_id, ext, object_prefix='object'):
     bucket = conn.get_bucket(bucket_name)
     k = Key(bucket)
     k.key = '{0}_{1}.{2}'.format(object_prefix, object_id, ext)
-    print 'key:', k.key
+    # print 'key:', k.key
     k.set_contents_from_filename(filename)
     k.make_public()
-    print 'Done upload'
+    # print 'Done upload'
     filename = get_s3_filename(bucket_name, k.key)
     return filename
 
