@@ -14,6 +14,9 @@ from models import *
 from flask.ext.admin import Admin
 from admin import *
 
+# from flaskext.mail import Mail, Message
+from flask.ext.mail import Mail, Message
+
 ################################
 ####### init and CONFIG ########
 ################################
@@ -24,6 +27,8 @@ app.secret_key = app.config['APP_SECRET_KEY']
 # admin = Admin(app, index_view=Dashboard)
 admin = Admin(app, name='Meetup Slides Admin')
 # admin.index_view = Dashboard
+mail = Mail(app)
+# mail.fail_silently = True
 
 # Load from config
 REDIS_HOST = app.config['REDIS_HOST']
@@ -226,6 +231,13 @@ def contact():
 
 @app.route('/about')
 def about():
+	msg = Message("Hello",
+	                  sender="admin@meetupslides.com",
+	                  recipients=["star@bharad.net"])
+	msg.body = "testing 8888"
+	msg.html = "<b>testing 8889</b>"
+    # import pdb; pdb.set_trace()
+	mail.send(msg)
 	return render_template('about.html')
 
 
