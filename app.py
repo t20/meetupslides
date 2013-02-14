@@ -1,13 +1,15 @@
 ### Meetupslides
 ### https://github.com/teraom/meetupslides
 
+import os
+import urlparse
+
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import redis
 import redisco
-import os
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
-import urlparse
+import sendgrid
 
 import settings
 from models import *
@@ -39,6 +41,8 @@ AWS_KEY = app.config['AWS_KEY']
 AWS_SECRET_KEY = app.config['AWS_SECRET_KEY']
 BUCKET_NAME = app.config['BUCKET_NAME']
 LOGOS_BUCKET_NAME = app.config['LOGOS_BUCKET_NAME']
+SENDGRID_USERNAME = os.environ.get('SENDGRID_USERNAME', '')
+SENDGRID_PASSWORD = os.environ.get('SENDGRID_PASSWORD', '')
 
 redis_url = os.environ.get('REDISTOGO_URL', None)
 if redis_url:
@@ -224,22 +228,26 @@ def contact():
     m = Message(name=name, email=email, subject=subject, message=message)
     saved = m.save()
     if saved:
-      flash('Thanks! We ll get back to you shortly')
+        s = sendgrid.Sendgrid(SENDGRID_USERNAME, SENDGRID_PASSWORD, secure=True)
+        message_body = ''
+        fields = ['name', 'email', 'message']
+        for f in fields:
+            s = '{0}: {1}\n'.format(f, getattr(m, f))
+            message_body.append(s)
+        message = sendgrid.Message("admin@meetupslides.com", subject, message_body,
+            "<p>{0}</p>".format(message_body))
+        message.add_to("star@bharad.net", "Bharad bharad")
+        s.web.send(message)
+        flash('Thanks! We will get back to you shortly')
+        return redirect(url_for(index))
     else:
-      flash('Something went wrong! Could not send message.')
+        flash('Something went wrong! Could not send message.')
     return redirect(url_for(contact))
 
 
 @app.route('/about')
 def about():
-	msg = Message("Hello",
-	                  sender="admin@meetupslides.com",
-	                  recipients=["star@bharad.net"])
-	msg.body = "testing 8888"
-	msg.html = "<b>testing 8889</b>"
-    # import pdb; pdb.set_trace()
-	mail.send(msg)
-	return render_template('about.html')
+    return render_template('about.html')
 
 
 @app.route('/jobs')
