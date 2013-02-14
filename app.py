@@ -238,7 +238,7 @@ def contact():
         s.web.send(message)
         flash('Thanks! We will get back to you shortly')
         return redirect(url_for(index))
-    except Exception e:
+    except Exception as e:
         print 'Exception sending message:', e
         flash('Something went wrong! Could not send message.')
         return redirect(url_for(contact))
