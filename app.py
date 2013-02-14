@@ -222,7 +222,10 @@ def contact():
     content = request.form.get('content', None)
     m = Message(name=name, email=email, subject=subject, content=content)
     saved = m.save()
-    if saved:
+    if not saved:
+        flash('Something went wrong! Could not send message.')
+        return redirect(url_for(contact))
+    try:
         s = sendgrid.Sendgrid(SENDGRID_USERNAME, SENDGRID_PASSWORD, secure=True)
         message_body = ''
         fields = ['name', 'email', 'content']
@@ -235,9 +238,10 @@ def contact():
         s.web.send(message)
         flash('Thanks! We will get back to you shortly')
         return redirect(url_for(index))
-    else:
+    except Exception e:
+        print 'Exception sending message:', e
         flash('Something went wrong! Could not send message.')
-    return redirect(url_for(contact))
+        return redirect(url_for(contact))
 
 
 @app.route('/about')
