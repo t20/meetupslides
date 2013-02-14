@@ -224,7 +224,7 @@ def contact():
     saved = m.save()
     if not saved:
         flash('Something went wrong! Could not send message.')
-        return redirect(url_for(contact))
+        return redirect(url_for('contact'))
     try:
         s = sendgrid.Sendgrid(SENDGRID_USERNAME, SENDGRID_PASSWORD, secure=True)
         message_body = ''
@@ -233,15 +233,15 @@ def contact():
             item = '{0}: {1}\n'.format(f, getattr(m, f))
             message_body += (item)
         message = sendgrid.Message("admin@meetupslides.com", subject, message_body,
-            "<p>{0}</p>".format(message_body))
+            "<p>{0}</p>".format(message_body.replace('\n', '<br/>')))
         message.add_to("star@bharad.net", "Bharad bharad")
         s.web.send(message)
         flash('Thanks! We will get back to you shortly')
-        return redirect(url_for(index))
+        return redirect(url_for('index'))
     except Exception as e:
         print 'Exception sending message:', e
         flash('Something went wrong! Could not send message.')
-        return redirect(url_for(contact))
+        return redirect(url_for('contact'))
 
 
 @app.route('/about')
