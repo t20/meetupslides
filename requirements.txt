@@ -11,3 +11,4 @@ redis==2.6.0
 redisco==0.1.4
 simplejson==2.3.2
 Flask-Mail==0.7.4
+sendgrid
