@@ -17,9 +17,6 @@ from models import *
 from flask.ext.admin import Admin
 from admin import *
 
-# from flaskext.mail import Mail, Message
-from flask.ext.mail import Mail, Message
-
 ################################
 ####### init and CONFIG ########
 ################################
@@ -30,8 +27,6 @@ app.secret_key = app.config['APP_SECRET_KEY']
 # admin = Admin(app, index_view=Dashboard)
 admin = Admin(app, name='Meetup Slides Admin')
 # admin.index_view = Dashboard
-mail = Mail(app)
-# mail.fail_silently = True
 
 # Load from config
 REDIS_HOST = app.config['REDIS_HOST']
@@ -224,16 +219,16 @@ def contact():
     name = request.form.get('name', None)
     email = request.form.get('email', None)
     subject = request.form.get('subject', None)
-    message = request.form.get('message', None)
-    m = Message(name=name, email=email, subject=subject, message=message)
+    content = request.form.get('content', None)
+    m = Message(name=name, email=email, subject=subject, content=content)
     saved = m.save()
     if saved:
         s = sendgrid.Sendgrid(SENDGRID_USERNAME, SENDGRID_PASSWORD, secure=True)
         message_body = ''
-        fields = ['name', 'email', 'message']
+        fields = ['name', 'email', 'content']
         for f in fields:
-            s = '{0}: {1}\n'.format(f, getattr(m, f))
-            message_body.append(s)
+            item = '{0}: {1}\n'.format(f, getattr(m, f))
+            message_body += (item)
         message = sendgrid.Message("admin@meetupslides.com", subject, message_body,
             "<p>{0}</p>".format(message_body))
         message.add_to("star@bharad.net", "Bharad bharad")
