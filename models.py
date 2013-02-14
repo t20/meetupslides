@@ -31,7 +31,7 @@ class Message(models.Model):
   name = models.Attribute(required=True)
   email = models.Attribute(required=True)
   subject = models.Attribute(required=True)
-  message = models.Attribute(required=True)
+  content = models.Attribute(required=True)
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
 

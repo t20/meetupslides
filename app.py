@@ -1,12 +1,15 @@
 ### Meetupslides
 ### https://github.com/teraom/meetupslides
 
+import os
+import urlparse
+
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import redis
-import os
+import redisco
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
-import urlparse
+import sendgrid
 
 import settings
 from models import *
@@ -33,13 +36,15 @@ AWS_KEY = app.config['AWS_KEY']
 AWS_SECRET_KEY = app.config['AWS_SECRET_KEY']
 BUCKET_NAME = app.config['BUCKET_NAME']
 LOGOS_BUCKET_NAME = app.config['LOGOS_BUCKET_NAME']
+SENDGRID_USERNAME = os.environ.get('SENDGRID_USERNAME', '')
+SENDGRID_PASSWORD = os.environ.get('SENDGRID_PASSWORD', '')
 
 redis_url = os.environ.get('REDISTOGO_URL', None)
 if redis_url:
     redis_url = urlparse.urlparse(redis_url)
-    settings.r = redis.Redis(host=redis_url.hostname, port=redis_url.port, db=0, password=redis_url.password)
+    redisco.connection_setup(host=redis_url.hostname, port=redis_url.port, db=0, password=redis_url.password)
 else:
-    settings.r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+    redisco.connection_setup(host='localhost', port=6379, db=0)
 
 ALLOWED_EXTENSIONS = set(('txt', 'pdf', 'ppt', 'pptx', 'zip', 'tar', 'rar'))
 ALLOWED_IMAGE_EXTENSIONS = set(('png', 'jpg'))
@@ -214,14 +219,34 @@ def contact():
     name = request.form.get('name', None)
     email = request.form.get('email', None)
     subject = request.form.get('subject', None)
-    message = request.form.get('message', None)
-    m = Message(name=name, email=email, subject=subject, message=message)
+    content = request.form.get('content', None)
+    m = Message(name=name, email=email, subject=subject, content=content)
     saved = m.save()
-    if saved:
-      flash('Thanks! We ll get back to you shortly')
-    else:
-      flash('Something went wrong! Could not send message.')
-    return redirect(url_for(contact))
+    if not saved:
+        flash('Something went wrong! Could not send message.')
+        return redirect(url_for('contact'))
+    try:
+        s = sendgrid.Sendgrid(SENDGRID_USERNAME, SENDGRID_PASSWORD, secure=True)
+        message_body = ''
+        fields = ['name', 'email', 'content']
+        for f in fields:
+            item = '{0}: {1}\n'.format(f, getattr(m, f))
+            message_body += (item)
+        message = sendgrid.Message("admin@meetupslides.com", subject, message_body,
+            "<p>{0}</p>".format(message_body.replace('\n', '<br/>')))
+        message.add_to("star@bharad.net", "Bharad bharad")
+        s.web.send(message)
+        flash('Thanks! We will get back to you shortly')
+        return redirect(url_for('index'))
+    except Exception as e:
+        print 'Exception sending message:', e
+        flash('Something went wrong! Could not send message.')
+        return redirect(url_for('contact'))
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 
 @app.route('/about')

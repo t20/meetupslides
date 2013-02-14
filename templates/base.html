@@ -58,12 +58,21 @@
       </div>
     </div>
 
-     <section id="typography">
-       <div class="page-header">
-         {% block page_title %}
+    <section id="typography">
+      <div class="page-header">
+        {% block page_title %}
+        {% endblock %}
+      </div>
 
-          {% endblock %}
-       </div>
+      <div class="flash-messages">
+        {% block flash_messages %}
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endwith %}
+        {% endblock %}
+      </div>
 
        <!-- Headings & Paragraph Copy -->
        <div class="row">
