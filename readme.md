@@ -42,9 +42,11 @@ http://redis.io/download
     $ pip install -r requirements.txt
 
 You may want to run redis server on a different tab.
+    
     $ redis-server 
 
 To run the application
+    
     $ python app.py
 
 If you need help with getting the dev environment up and running, please feel free to contact me via github.
