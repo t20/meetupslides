@@ -5,10 +5,14 @@
   
   <a href="/meetup/add">Add Meetup</a>
 
-  <ul>
+  <div class="meetups-container">
   {% for meetup in meetups %}
-    <li><a href="/meetup/{{ meetup.id }}">{{ meetup.city }} - {{ meetup.name }}</a></li>
+    <div class="meetup"><a href="/meetup/{{ meetup.id }}">
+        <img src="{{ meetup.logo|default('static/img/meetup.png', true) }}" height=150 width=150 /><br/>
+        <span class="meetup-name">{{ meetup.city }} - {{ meetup.name }}</span>
+        </a>
+    </div>
   {% endfor %}
-  </ul>
+  </div>
 
 {% endblock content %}
