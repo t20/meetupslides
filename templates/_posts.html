@@ -1,5 +1,5 @@
-<ul>
+<div class="slides-container">
 {% for post in posts %}
-  <li><a href="/post/{{ post.id }}">{{ post.title }} - {{ post.author }}</li>
+  <div><img src="/static/img/slide.png" /><a href="/post/{{ post.id }}">{{ post.title }} - {{ post.author }}</a></div>
 {% endfor %}
-</ul>
+</div>
