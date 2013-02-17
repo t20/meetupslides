@@ -17,7 +17,7 @@ A lot of experts present awesome stuff at meetups. The slides are usually not sh
 Contributing to this repo
 =========================
 
-This is an interesting application built using Flask (an awesome python micro framework) Redis, Twitter bootstrap, amazon S3 and is hosted on heroku.
+This is an interesting application built using Flask (an awesome python micro framework), Redis, Twitter bootstrap, amazon S3 and is hosted on heroku.
 
 Who can contribute?
 ===================
