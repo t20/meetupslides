@@ -7,7 +7,7 @@
 
   <div class="meetups-container">
   {% for meetup in meetups %}
-    <div class="meetup"><a href="/meetup/{{ meetup.id }}">
+    <div class="span3 meetup"><a href="/meetup/{{ meetup.id }}">
         <img src="{{ meetup.logo|default('static/img/meetup.png', true) }}" height=150 width=150 /><br/>
         <span class="meetup-name">{{ meetup.city }} - {{ meetup.name }}</span>
         </a>
