@@ -49,5 +49,5 @@ To run the application
     
     $ python app.py
 
-If you need help with getting the dev environment up and running, please feel free to contact me via github.
+If you need help with getting the dev environment up and running, please feel free to contact me via meetupslides.com/contact.
 
