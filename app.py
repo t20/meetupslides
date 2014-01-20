@@ -259,6 +259,13 @@ def jobs():
     jobs = get_jobs()
     return render_template('jobs.html')
 
+@app.route('/file-upload',  methods=['POST'])
+def file_upload():
+    #posts = get_recent_posts()
+    #return render_template('index.html', posts=posts)
+    return jsonify(result=True)
+
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 0))

@@ -2,3 +2,50 @@
     text-align:center;
     display:block;
 }
+
+
+.row {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.marketing{
+           text-align: center;
+}
+
+.marketing h1 {
+margin: 20px 0 10px;
+font-size: 60px;
+font-weight: 200;
+line-height: 1;
+letter-spacing: -1px;
+color: #0088aa;
+}
+
+
+#dropzone {
+margin: 30px 0;
+-webkit-box-shadow: 0 0 50px rgba(0,0,0,0.13);
+box-shadow: 0 0 50px rgba(0,0,0,0.13);
+padding: 4px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+}
+
+
+.dropzone {
+border: 1px solid rgba(0,0,0,0.03);
+min-height: 360px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+background: rgba(0,0,0,0.03);
+padding: 23px;
+}
+
+
+.dropzone .dz-default.dz-message {
+background-image: url("../images/spritemap@2x.png");
+-webkit-background-size: 428px 406px;
+-moz-background-size: 428px 406px;
+background-size: 428px 406px;
+}
