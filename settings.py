@@ -9,11 +9,12 @@ class Config(object):
     REDIS_HOST = 'localhost'
     
     UPLOAD_FOLDER = '/tmp/'
-    AWS_KEY = 'AKIAILGFFUGZMMIMHHHA'
-    AWS_SECRET_KEY = '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'
-    BUCKET_NAME = 'slides_dev'
+    AWS_KEY = 'AWSKEY'
+    AWS_SECRET_KEY = 'RANDOMSECRETKEY' 
+    BUCKET_NAME = 'meetupslides_dev'
     LOGOS_BUCKET_NAME = 'meetupslides_logos'
-
+    DYNAMO_DB = 'meetup_slides'
+    
     MAIL_DEBUG = False
     
     r = None    
