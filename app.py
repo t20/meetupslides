@@ -2,6 +2,7 @@
 ### https://github.com/teraom/meetupslides
 
 import os
+import json
 import urlparse
 
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
@@ -277,7 +278,10 @@ def file_upload():
         # except Exception as e:
         #     print 'Exception'
     # print 'Post saved?', saved
-        
+    
+    # Save all metadata associated with this file
+    metadata = json.loads(request.form['metadata'])
+    
     return jsonify(result=True)
 
 

@@ -20,15 +20,37 @@ MeetupSlides = {
     },               
     validateUpload : function(){
         speaker_validation = MeetupSlides.textValidator('.validate-speaker', 'input', 'Speaker Name');
+        meetup_name_validation = MeetupSlides.textValidator('.validate-meetup-name', 'input', 'Meetup Name');
         title_validation = MeetupSlides.textValidator('.validate-title', 'input', 'Presentation title');
         description_validation = MeetupSlides.textValidator('.validate-description', 'textarea', 'A brief description of the talk.');
                 
-        if (speaker_validation == true  && title_validation == true && description_validation == true){
+        if (meetup_name_validation == true && speaker_validation == true  && title_validation == true && description_validation == true){
            return true;    
         }else{
            return false;
         }                                                                                                 
     },
+    
+    
+    generateFormDataParams : function(){
+     // Add all the metadata about files (author, title, etc) to the 'params' variable
+     // of the Dropzone in the format { <filename> : {metadata as dict} }. 
+     var formData = {};
+     $(".dz-preview").each(function(k, v){
+         var file_name = $(".dz-filename", $(this)).find('span').html();                                 
+         var speaker_name= $('.presentation-speaker-name', $(this)).find('input').val();
+         var presentation_title= $('.presentation-title', $(this)).find('input').val();
+         var presentation_name= $('.presentation-name', $(this)).find('input').val();    
+         var presentation_description= $('.presentation-description', $(this)).find('textarea').val();      
+         console.log(file_name + speaker_name + presentation_title + presentation_description);
+         formData[file_name] =  JSON.stringify({"speaker_name":speaker_name, 
+                                                "presentation_title": presentation_title, 
+                                                "presentation_description": presentation_description,
+                                                "presentation_name": presentation_name});                                                    
+     }); 
+     return formData;                                  
+                                      
+    }
 };
 
 Dropzone.options.myAwesomeDropzone= {
@@ -46,6 +68,9 @@ Dropzone.options.myAwesomeDropzone= {
                    '<div class="dz-success-mark"><span>✔</span></div>',
                    '<div class="dz-error-mark"><span>✘</span></div>',
                    '<div class="dz-error-message"><span data-dz-errormessage></span></div>',
+                   '<div class="meetup-name presentation-details validate-meetup-name">',
+                       '<input class="form-control" id="focusedInput" type="text" value="Meetup Name">',
+                   '</div>',                   
                    '<div class="presentation-speaker-name presentation-details validate-speaker">',
                        '<input class="form-control" id="focusedInput" type="text" value="Speaker Name">',
                    '</div>',
@@ -59,14 +84,22 @@ Dropzone.options.myAwesomeDropzone= {
                                        
   init: function() {
     var myDropzone = this;
+    
     // First change the button to actually tell Dropzone to process the queue.
     this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
       // Make sure that the form isn't actually being sent.
       e.preventDefault();
-      e.stopPropagation();      
+      e.stopPropagation();
+      
+      // Add all metadata about each file into each post request      
+      // updated_form_data = MeetupSlides.generateFormDataParams();
+      //this.params = MeetupSlides.generateFormDataParams();
+      
+      
       var validation_succeeded = MeetupSlides.validateUpload();
       
-      if (validation_succeeded == true ){
+      if (validation_succeeded == true){
+                                         
          myDropzone.processQueue();                                         
       }else{
             alert("Please fill in the boxes marked with red. Thanks! It helps us keep our data clean.");
@@ -88,7 +121,11 @@ Dropzone.options.myAwesomeDropzone= {
       }
     });
                                      
-    this.on("sending", function(xhr, formdata){
+    this.on("sending", function(file, xhr, formdata){
+        additional_form_data =  MeetupSlides.generateFormDataParams();                                                    
+        key = "metadata"
+        value = additional_form_data[file.name];
+        formdata.append(key, value);
         console.log("do something here and add additional fields");                                       
     });                                     
   }
