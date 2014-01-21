@@ -9,9 +9,9 @@ class Config(object):
     REDIS_HOST = 'localhost'
     
     UPLOAD_FOLDER = '/tmp/'
-    AWS_KEY = 'AKIAILGFFUGZMMIMHHHA'
-    AWS_SECRET_KEY = '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'
-    BUCKET_NAME = 'slides_dev'
+    AWS_KEY = 'AKIAJHFV3ZHZ22HSNN3Q' # 'AKIAILGFFUGZMMIMHHHA'
+    AWS_SECRET_KEY = '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'  #'hW/fj6Hq8gupe31sXguJEerP1t0EZ1m0xKFXZ9WK'
+    BUCKET_NAME = 'meetupslides_dev'
     LOGOS_BUCKET_NAME = 'meetupslides_logos'
 
     MAIL_DEBUG = False
