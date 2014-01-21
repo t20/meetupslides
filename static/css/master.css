@@ -49,3 +49,7 @@ background-image: url("../images/spritemap@2x.png");
 -moz-background-size: 428px 406px;
 background-size: 428px 406px;
 }
+
+.presentation-details{
+ padding-top:5px;
+}

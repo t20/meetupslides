@@ -263,6 +263,21 @@ def jobs():
 def file_upload():
     #posts = get_recent_posts()
     #return render_template('index.html', posts=posts)
+    slides = request.files['file']
+    if slides and allowed_file(slides.filename, ALLOWED_EXTENSIONS):
+        filename = secure_filename(slides.filename)
+        # try:
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        slides.save(filepath)
+        ext = filename.rsplit('.', 1)[1]
+        s3_filename = upload_to_s3(filepath, BUCKET_NAME, 0, ext, object_prefix='slide')
+        os.remove(filepath)
+        ##p.slides = [s3_filename]
+        ##p.save()
+        # except Exception as e:
+        #     print 'Exception'
+    # print 'Post saved?', saved
+        
     return jsonify(result=True)
 
 
@@ -273,5 +288,5 @@ if __name__ == '__main__':
         app.debug = False
         app.run(host='0.0.0.0', port=port)
     else:
-        app.debug = True
+        app.debug = False
         app.run()
