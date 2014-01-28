@@ -2,7 +2,10 @@
 ### https://github.com/teraom/meetupslides
 
 import os
+import json
 import urlparse
+from datetime import datetime
+import random
 
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import redis
@@ -16,6 +19,10 @@ from models import *
 
 from flask.ext.admin import Admin
 from admin import *
+
+import boto
+from boto.dynamodb2.table import Table
+
 
 ################################
 ####### init and CONFIG ########
@@ -259,6 +266,47 @@ def jobs():
     jobs = get_jobs()
     return render_template('jobs.html')
 
+@app.route('/file-upload',  methods=['POST'])
+def file_upload():
+    #posts = get_recent_posts()
+    #return render_template('index.html', posts=posts)
+    slides = request.files['file']
+    if slides and allowed_file(slides.filename, ALLOWED_EXTENSIONS):
+        filename = secure_filename(slides.filename)
+        # try:
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        slides.save(filepath)
+        ext = filename.rsplit('.', 1)[1]
+        s3_filename = upload_to_s3(filepath, BUCKET_NAME, 0, ext, object_prefix='slide')
+        os.remove(filepath)
+        ##p.slides = [s3_filename]
+        ##p.save()
+        # except Exception as e:
+        #     print 'Exception'
+    # print 'Post saved?', saved
+    
+    # Save all metadata associated with this file
+    metadata = json.loads(request.form['metadata'])
+    speaker_name = metadata["speaker_name"]
+    presentation_title = metadata["presentation_title"]
+    presentation_description = metadata["presentation_description"]
+    
+    conn = boto.dynamodb2.connect_to_region(
+        'us-east-1',
+        aws_access_key_id='AKIAIOOG5DUKI6O4BBTQ',
+        aws_secret_access_key='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'
+    )   
+    
+    slides = Table('meetup_slides', connection=conn)
+    slides.put_item(data={
+     'speaker_name' : speaker_name,
+     'presentation_title' : presentation_title,
+     'presentation_description' : presentation_description,
+     'timestamp' : str(datetime.now()) + str(random.random())
+    })    
+    
+    return jsonify(result=True)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 0))
@@ -266,5 +314,5 @@ if __name__ == '__main__':
         app.debug = False
         app.run(host='0.0.0.0', port=port)
     else:
-        app.debug = True
+        app.debug = False
         app.run()
