@@ -10,7 +10,7 @@ class Config(object):
     
     UPLOAD_FOLDER = '/tmp/'
     AWS_KEY = 'AWS KEY'
-    AWS_SECRET_KEY = 'AWS_SECRET_KEY' 
+    AWS_SECRET_KEY = 'AWS SECRET' 
     BUCKET_NAME = 'meetupslides_dev'
     LOGOS_BUCKET_NAME = 'meetupslides_logos'
     DYNAMO_DB = 'meetup_slides'

@@ -89,6 +89,10 @@ def get_s3_filename(bucket_name, key):
     return 'https://s3.amazonaws.com/{0}/{1}'.format(bucket_name, key)
 
 
+@app.template_filter('convert_to_image_id')
+def image_filter(meetup_id):
+    return str(10000 + int(meetup_id))[-4:] + ".jpg"
+
 ################################
 ####### All router methods #####
 ################################
@@ -101,7 +105,7 @@ def index():
 
 @app.route('/meetups')
 def meetups():
-    meetups = get_meetups()
+    meetups = get_meetups()    
     return render_template('meetups.html', meetups=meetups)
 
 
@@ -311,8 +315,8 @@ def file_upload():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 0))
     if port:
-        app.debug = False
+        app.debug = True
         app.run(host='0.0.0.0', port=port)
     else:
-        app.debug = False
+        app.debug = True
         app.run()

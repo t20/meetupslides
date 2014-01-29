@@ -1,18 +1,49 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h3>Meetups</h3>
-  
-  <a class="btn btn-primary btn-large" href="/meetup/add">Add Meetup</a>
 
-  <div class="meetups-container">
+  <div class="row">
+    <div id="meetup-list-title" class="col-lg-6">
+        <h1 class="leading">Meetups and Presentations</h1>
+    </div>
+          
+    <div class="col-lg-2">
+        <a class="btn btn-success btn-large" href="/meetup/add">Add Your Meetup Now!</a>
+    </div>
+  </div>
+  
   {% for meetup in meetups %}
-    <div class="span3 meetup"><a href="/meetup/{{ meetup.id }}">
-        <img src="{{ meetup.logo|default('/static/img/meetup.png', true) }}" height=150 width=150 /><br/>
-        <span class="meetup-name">{{ meetup.city }} - {{ meetup.name }}</span>
-        </a>
+    <div class="row meetup-row">
+        <div class="col-lg-2">
+            <a href="/meetup/{{ meetup.id }}">
+                <img class="meetup_logo_large" src="/static/img/avtars/{{ meetup.id | convert_to_image_id }}" height=150 width=150 /><br/>
+            </a>                 
+        </div>  
+                
+        <div class="col-lg-6">
+            <div>
+                <h3>
+                <a href="/meetup/{{ meetup.id }}">
+                    {{ meetup.city }} - {{ meetup.name }}
+                </a>
+                </h3>
+            </div>
+            <div>
+                <a href="/meetup/{{ meetup.id }}">
+                    http://meetup.my.test/
+                </a>                
+            </div>                     
+            <div>                
+                Uploaded presentations: 0                                
+            </div>                   
+            <div>
+                Subscribers: 0
+            </div>    
+        </div>
+    
+     
     </div>
   {% endfor %}
-  </div>
+  
 
 {% endblock content %}

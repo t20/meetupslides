@@ -7,8 +7,8 @@
     <meta name="author" content="Bharad">
     
     {% block defaulthead %}
-      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/united.bootstrap.min.css') }}">
       <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/dropzone.css') }}">
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/united.bootstrap.min.css') }}">      
       <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/master.css') }}">
 
       <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
@@ -66,7 +66,7 @@
   <div class="container">
 
 
-    <div class="row">
+    <!-- <div class="row"> -->
  
       <div class="flash-messages">
         {% block flash_messages %}
@@ -79,19 +79,19 @@
       </div>
 
        <!-- Headings & Paragraph Copy -->
-       <div class="row">
+       <!-- <div class="row"> -->
 
          {% block content %}
 
          {% endblock %}
 
-       </div>
+       <!-- </div> -->
      </div>
-
-     <div class="footer">
+     
+     <div class="container footer">
        <p>&copy; Slides 2012</p>
      </div>
 
-  </div>  
+     <!-- </div> -->  
   </body>
 </html>

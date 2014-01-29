@@ -1,6 +1,5 @@
 .meetup span {
-    text-align:center;
-    display:block;
+    
 }
 
 
@@ -70,4 +69,22 @@ h2.leading{
 
 #hidden_field_for_meetup_id{
    visibility:hidden;
+}
+
+.meetup_logo_large{
+    box-shadow: 5px 5px 2px #888888;
+}
+
+#add_meetup{
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.meetup-row{
+    padding-bottom:10px;
+    padding-top:5px;            
+}
+
+#meetup-list-title{
+  padding-bottom:10px;
 }
