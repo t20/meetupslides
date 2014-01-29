@@ -20,11 +20,11 @@ MeetupSlides = {
     },               
     validateUpload : function(){
         speaker_validation = MeetupSlides.textValidator('.validate-speaker', 'input', 'Speaker Name');
-        meetup_name_validation = MeetupSlides.textValidator('.validate-meetup-name', 'input', 'Meetup Name');
+        //meetup_name_validation = MeetupSlides.textValidator('.validate-meetup-name', 'input', 'Meetup Name');
         title_validation = MeetupSlides.textValidator('.validate-title', 'input', 'Presentation title');
         description_validation = MeetupSlides.textValidator('.validate-description', 'textarea', 'A brief description of the talk.');
                 
-        if (meetup_name_validation == true && speaker_validation == true  && title_validation == true && description_validation == true){
+        if (speaker_validation == true  && title_validation == true && description_validation == true){
            return true;    
         }else{
            return false;
@@ -41,12 +41,15 @@ MeetupSlides = {
          var speaker_name= $('.presentation-speaker-name', $(this)).find('input').val();
          var presentation_title= $('.presentation-title', $(this)).find('input').val();
          var presentation_name= $('.presentation-name', $(this)).find('input').val();    
-         var presentation_description= $('.presentation-description', $(this)).find('textarea').val();      
+         var presentation_description= $('.presentation-description', $(this)).find('textarea').val();
+         
+         var meetup_id= $('#hidden_field_for_meetup_id').html();  
+               
          console.log(file_name + speaker_name + presentation_title + presentation_description);
          formData[file_name] =  JSON.stringify({"speaker_name":speaker_name, 
                                                 "presentation_title": presentation_title, 
                                                 "presentation_description": presentation_description,
-                                                "presentation_name": presentation_name});                                                    
+                                                "meetup_id": meetup_id });                                                    
      }); 
      return formData;                                  
                                       
@@ -67,10 +70,7 @@ Dropzone.options.myAwesomeDropzone= {
                    '<div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>',
                    '<div class="dz-success-mark"><span>✔</span></div>',
                    '<div class="dz-error-mark"><span>✘</span></div>',
-                   '<div class="dz-error-message"><span data-dz-errormessage></span></div>',
-                   '<div class="meetup-name presentation-details validate-meetup-name">',
-                       '<input class="form-control" id="focusedInput" type="text" value="Meetup Name">',
-                   '</div>',                   
+                   '<div class="dz-error-message"><span data-dz-errormessage></span></div>',                  
                    '<div class="presentation-speaker-name presentation-details validate-speaker">',
                        '<input class="form-control" id="focusedInput" type="text" value="Speaker Name">',
                    '</div>',
@@ -114,8 +114,7 @@ Dropzone.options.myAwesomeDropzone= {
         var uploaded_files = [];        
         for(i=0; i < this.files.length;i++){
           if (this.files[i].accepted == true){
-            uploaded_files.append(this.files[i].name);
-            
+            //uploaded_files.append(this.files[i].name);            
           }
         }    
       }

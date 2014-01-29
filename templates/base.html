@@ -7,7 +7,7 @@
     <meta name="author" content="Bharad">
     
     {% block defaulthead %}
-      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/yeti.bootstrap.min.css') }}">
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/united.bootstrap.min.css') }}">
       <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/dropzone.css') }}">
       <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/master.css') }}">
 
@@ -40,8 +40,8 @@
   </head>
 
   <body class="{% block bodyclass %}{% endblock %}">
-  <div class="container">
-    <div class="navbar navbar-default">
+    <div class="navbar navbar-default">    
+          <div class="container">
                 <div class="navbar-header">
                   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
                     <span class="icon-bar"></span>
@@ -58,12 +58,13 @@
                     <li><a href="/jobs">Jobs</a></li>
                     <li><a href="/contact">Contacts</a></li>
                   </ul>
-                  <form class="navbar-form navbar-left">
-                    <input type="text" class="form-control col-lg-8" placeholder="Search">
-                  </form>
 
-                </div><!-- /.nav-collapse -->
-              </div>
+           </div>
+     </div><!-- /.nav-collapse -->
+    </div>
+       
+  <div class="container">
+
 
     <div class="row">
  
@@ -87,7 +88,7 @@
        </div>
      </div>
 
-     <div>
+     <div class="footer">
        <p>&copy; Slides 2012</p>
      </div>
 

@@ -4,14 +4,33 @@
 
 {% block content %}
 
-<img src="{{ meetup.logo }}" alt="{{ meetup.name }} - {{ meetup.city }}">
 
-<h2>{{ meetup.name }} - {{ meetup.city }}</h2>
+<!-- <img src="{{ meetup.logo }}" alt="{{ meetup.name }} - {{ meetup.city }}"> --> 
 
-<a class="btn btn-primary btn-large" href="/add?meetup_id={{ meetup.id }}">Add Slide</a>
 
-<h3>Recent slides:</h3>
+<h1 class="leading">{{ meetup.name }} - {{ meetup.city }}</h1>
 
+<!-- <a class="btn btn-primary btn-large" href="/add?meetup_id={{ meetup.id }}">Add Slide</a> -->
+    
+    <div id="dropzone">
+        <form action="/file-upload"
+            class="dropzone"
+            id="my-awesome-dropzone">
+                 <div id="final-upload-button" style="text-align:center">
+                    <button type="submit" class="btn btn-lg btn-success">Upload Presentations</button> 
+                 </div>              
+            </form>            
+    </div>
+
+    
+<h2 class="leading">
+  {% if posts %}
+    Recent slides
+  {% else %}
+    Be the first one to upload slides for {{ meetup.name }}
+  {% endif %}
+</h2>
+<div id="hidden_field_for_meetup_id">{{ meetup.id }}</div>
 {% include "_posts.html" %}
 
 {% endblock content %}

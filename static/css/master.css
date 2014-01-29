@@ -35,7 +35,7 @@ border-radius: 3px;
 
 .dropzone {
 border: 1px solid rgba(0,0,0,0.03);
-min-height: 360px;
+min-height: 260px;
 -webkit-border-radius: 3px;
 border-radius: 3px;
 background: rgba(0,0,0,0.03);
@@ -52,4 +52,22 @@ background-size: 428px 406px;
 
 .presentation-details{
  padding-top:5px;
+}
+
+h1.leading{
+   font-size: 36px;
+   color: #0088aa;            
+}
+
+h2.leading{
+   font-size: 22px;
+   color: #0088aa;            
+}
+
+.footer{
+   padding-top:30px;
+}
+
+#hidden_field_for_meetup_id{
+   visibility:hidden;
 }
