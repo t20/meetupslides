@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
+{% block head %}
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+        var $container = $('#meetup-container');
+        // initialize
+        $container.masonry({
+          columnWidth: 200,
+          itemSelector: '.meetup-item'
+        });
+    });  
+    </script>
+{% endblock %}
+
 {% block content %}
 
   <div class="row">
@@ -11,16 +24,14 @@
         <a class="btn btn-success btn-large" href="/meetup/add">Add Your Meetup Now!</a>
     </div>
   </div>
-  
-  {% for meetup in meetups %}
-    <div class="row meetup-row">
-        <div class="col-lg-2">
-            <a href="/meetup/{{ meetup.id }}">
+<div class="row all-meetups-list">
+  <div class="container" id="meetup-container">  
+  {% for meetup in meetups %}                 
+        <div class="meetup-item">
+            <div>
                 <img class="meetup_logo_large" src="/static/img/avtars/{{ meetup.id | convert_to_image_id }}" height=150 width=150 /><br/>
-            </a>                 
-        </div>  
                 
-        <div class="col-lg-6">
+            </div>        
             <div>
                 <h3>
                 <a href="/meetup/{{ meetup.id }}">
@@ -32,6 +43,9 @@
                 <a href="/meetup/{{ meetup.id }}">
                     http://meetup.my.test/
                 </a>                
+            </div>
+            <div>
+                {{ meetup.desc }}
             </div>                     
             <div>                
                 Uploaded presentations: 0                                
@@ -40,10 +54,9 @@
                 Subscribers: 0
             </div>    
         </div>
-    
-     
-    </div>
   {% endfor %}
+  </div>
+</row>  
   
 
 {% endblock content %}

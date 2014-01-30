@@ -88,3 +88,17 @@ h2.leading{
 #meetup-list-title{
   padding-bottom:10px;
 }
+
+.meetup-item{
+  width: 200px;
+  min-height: 400px;
+  padding-right:20px;
+  padding-left:20px
+}
+
+.item { width: 25%; }
+.item.w2 { width: 50%; }
+
+.all-meetups-list{
+  margin-left:60px;                  
+}

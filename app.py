@@ -100,7 +100,8 @@ def image_filter(meetup_id):
 @app.route('/')
 def index():
     posts = get_recent_posts()
-    return render_template('index.html', posts=posts)
+    meetups = get_top_metups()
+    return render_template('index.html', posts=posts, meetups=meetups)
 
 
 @app.route('/meetups')

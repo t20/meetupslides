@@ -43,6 +43,8 @@ def get_meetup(meetup_id):
 def get_meetups():
     return Meetup.objects.all()
 
+def get_top_metups():
+    return Meetup.objects.all()
 
 def get_posts(meetup_id):
     return Post.objects.filter(meetup_id=meetup_id)

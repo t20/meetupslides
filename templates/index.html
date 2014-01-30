@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 
+
+{% block head %}
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+        var $container = $('#meetup-container');
+        // initialize
+        $container.masonry({
+          columnWidth: 200,
+          itemSelector: '.meetup-item'
+        });
+    });  
+    </script>
+{% endblock %}
+
 {% block content %}
 
 <div class="row">
@@ -9,6 +23,7 @@
 
 </div>
 
+{#}
 <div class="row">
   <div class="control-group">
     <form action="/search" method="POST" accept-charset="utf-8">
@@ -18,6 +33,40 @@
     </form>
   </div>
 </div>
+#}
+<div class="row all-meetups-list">
+  <div class="container" id="meetup-container">  
+  {% for meetup in meetups %}                 
+        <div class="meetup-item">
+            <div>
+                <img class="meetup_logo_large" src="/static/img/avtars/{{ meetup.id | convert_to_image_id }}" height=150 width=150 /><br/>
+                
+            </div>        
+            <div>
+                <h3>
+                <a href="/meetup/{{ meetup.id }}">
+                    {{ meetup.city }} - {{ meetup.name }}
+                </a>
+                </h3>
+            </div>
+            <div>
+                <a href="/meetup/{{ meetup.id }}">
+                    http://meetup.my.test/
+                </a>                
+            </div>
+            <div>
+                {{ meetup.desc }}
+            </div>                     
+            <div>                
+                Uploaded presentations: 0                                
+            </div>                   
+            <div>
+                Subscribers: 0
+            </div>    
+        </div>
+  {% endfor %}
+  </div>
+</row>  
 
 <div class="row">
   <h3>Recent Slides</h3>
