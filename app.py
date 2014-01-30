@@ -91,7 +91,7 @@ def get_s3_filename(bucket_name, key):
 
 @app.template_filter('convert_to_image_id')
 def image_filter(meetup_id):
-    return str(10000 + int(meetup_id))[-4:] + ".jpg"
+    return str(10000 + int(meetup_id)%70)[-4:] + ".jpg" # since there are around 70 images
 
 ################################
 ####### All router methods #####

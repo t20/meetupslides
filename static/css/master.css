@@ -1,8 +1,6 @@
-.meetup span {
-    
+body{
+background:#f3f3f3;     
 }
-
-
 .row {
 	margin-left: 0px;
 	margin-right: 0px;
@@ -72,7 +70,7 @@ h2.leading{
 }
 
 .meetup_logo_large{
-    box-shadow: 5px 5px 2px #888888;
+   /*  box-shadow: 5px 5px 2px #888888; */
 }
 
 #add_meetup{
@@ -91,7 +89,8 @@ h2.leading{
 
 .meetup-item{
   width: 200px;
-  min-height: 400px;
+  min-height:280px;
+  min-width:250px;
   padding-right:20px;
   padding-left:20px
 }
@@ -110,4 +109,70 @@ h2.leading{
 
 .nav-container{
   margin-left:60px;                 
+}
+
+.meetup-name-over-photo{
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(22,24,27,0)), color-stop(72px, rgba(22,24,27,0.7)), color-stop(100%, rgba(22,24,27,0.9)));
+    background: -webkit-linear-gradient(top, rgba(22,24,27,0), rgba(22,24,27,0.7) 72px, rgba(22,24,27,0.9));
+    background: -moz-linear-gradient(top, rgba(22,24,27,0), rgba(22,24,27,0.7) 72px, rgba(22,24,27,0.9));
+    background: -o-linear-gradient(top, rgba(22,24,27,0), rgba(22,24,27,0.7) 72px, rgba(22,24,27,0.9));
+    background: -ms-linear-gradient(top, rgba(22,24,27,0), rgba(22,24,27,0.7) 72px, rgba(22,24,27,0.9));
+    background: linear-gradient(top, rgba(22,24,27,0),rgba(22,24,27,0.7) 72px,rgba(22,24,27,0.9));
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    line-height: 27px;
+    display: block;
+    color: #fff;
+    padding: 50px 15px 20px;
+    orphans: 2;
+    vertical-align: bottom;
+    width: 94%;
+    max-height:200px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size:18px;
+}
+
+.single-card{
+   position:relative;      
+}
+
+.meetup-info{    
+    background-color:#fff;                  
+    width: 197px;
+    position: relative;
+    top: -5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    border-bottom-color: #eee;
+    border-bottom: 1px solid #aaa;
+    border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+}
+
+.meetup-info-uploads{
+    margin-top: 10px;
+    position: relative;
+    margin-left: 9px;
+    margin-bottom: 12px;                    
+}
+
+.meetup-info-slides{
+    font-size: 15px;
+    font-family: helvetica,arial,sans-serif;
+    font-weight: bold;                   
+}
+
+.meetup-info-slides-normal{
+    font-weight: normal;                               
+}
+
+#index-banner{
+   margin-bottom:65px;
+                 
 }
