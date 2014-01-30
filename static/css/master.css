@@ -102,3 +102,12 @@ h2.leading{
 .all-meetups-list{
   margin-left:60px;                  
 }
+
+
+.navbar {
+  min-height:100px;
+}
+
+.nav-container{
+  margin-left:60px;                 
+}
