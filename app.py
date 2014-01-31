@@ -23,6 +23,7 @@ from admin import *
 import boto
 from boto.dynamodb2.table import Table
 
+from default_meetups import DEFAULT_MEETUPS
 
 ################################
 ####### init and CONFIG ########
@@ -266,10 +267,35 @@ def jobs():
     jobs = get_jobs()
     return render_template('jobs.html')
 
+
+def save_post(request):
+    
+    # Save all metadata associated with this file
+    metadata = json.loads(request.form['metadata'])
+    speaker_name = metadata["speaker_name"]
+    presentation_title = metadata["presentation_title"]
+    presentation_description = metadata["presentation_description"]
+    meetup_id = int(metadata["meetup_id"])
+        
+    title = presentation_title
+    desc = presentation_description
+    author = speaker_name
+    user_id = request.form.get('user_id', 0)
+    
+    p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id, author=author)
+    p.save()
+    post_id = p.id
+    
+    return post_id
+
 @app.route('/file-upload',  methods=['POST'])
 def file_upload():
     #posts = get_recent_posts()
     #return render_template('index.html', posts=posts)
+    
+    post_id = save_post(request)
+    
+    
     slides = request.files['file']
     if slides and allowed_file(slides.filename, ALLOWED_EXTENSIONS):
         filename = secure_filename(slides.filename)
@@ -277,7 +303,7 @@ def file_upload():
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         slides.save(filepath)
         ext = filename.rsplit('.', 1)[1]
-        s3_filename = upload_to_s3(filepath, BUCKET_NAME, 0, ext, object_prefix='slide')
+        s3_filename = upload_to_s3(filepath, BUCKET_NAME, post_id, ext, object_prefix='slide')
         os.remove(filepath)
         ##p.slides = [s3_filename]
         ##p.save()
@@ -285,12 +311,10 @@ def file_upload():
         #     print 'Exception'
     # print 'Post saved?', saved
     
-    # Save all metadata associated with this file
-    metadata = json.loads(request.form['metadata'])
-    speaker_name = metadata["speaker_name"]
-    presentation_title = metadata["presentation_title"]
-    presentation_description = metadata["presentation_description"]
+
     
+    
+    '''
     conn = boto.dynamodb2.connect_to_region(
         'us-east-1',
         aws_access_key_id=AWS_KEY,
@@ -304,15 +328,22 @@ def file_upload():
      'presentation_description' : presentation_description,
      'timestamp' : str(datetime.now()) + str(random.random())
     })    
+    '''
     
     return jsonify(result=True)
 
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 0))
+    
+    # Prefill meetups with a get or create
+    for meetup in DEFAULT_MEETUPS:
+        m = Meetup.objects.get_or_create(**meetup)
+        m.save()
+    
     if port:
-        app.debug = True
+        app.debug = False
         app.run(host='0.0.0.0', port=port)
     else:
-        app.debug = True
+        app.debug = False
         app.run()
