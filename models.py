@@ -36,6 +36,15 @@ class Message(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 
+class Job(models.Model):
+    title = models.Attribute(required=True)
+    link = models.Attribute(required=True)
+    company = models.Attribute(required=True)
+    content = models.Attribute(required=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
 def get_meetup(meetup_id):
     return Meetup.objects.get_by_id(meetup_id)
 
@@ -59,5 +68,4 @@ def get_recent_posts(limit=10):
 
 
 def get_jobs():
-    return []
-    # return Job.objects.all()
+    return Job.objects.all()
