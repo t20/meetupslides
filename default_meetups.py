@@ -36,7 +36,7 @@ DEFAULT_MEETUPS = [
 
 {
 "city": "San Francisco",
-"name": "San Francisco & Silicon Valley Web Performance Group",
+"name": "SF & Silicon Valley Web Performance Group",
 "website": "http://www.meetup.com/SF-Web-Performance-Group/",
 "description": ""
 },     

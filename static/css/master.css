@@ -173,11 +173,31 @@ h2.leading{
 }
 
 #index-banner{
-   margin-bottom:65px;
+   margin-bottom:45px;
                  
 }
 
 .banner{
 	background-color:#fff;
+	padding-top:20px;
 	margin-top:-20px;
+	margin-bottom: 20px;
+}
+
+
+.slides-container div{
+    margin-bottom:10px;				
+}
+
+.slides-container img{
+    margin-right:10px;					
+}
+
+.upload-promo{
+   padding-left:45px;
+   text-align:center;
+   padding-top:95px;
+   line-height:1.6em;  	
+   color: #dd4814;
+   font-weight:bold;	
 }

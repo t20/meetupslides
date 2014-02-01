@@ -2,17 +2,25 @@
 
 {% block title %}{{ meetup.name }} - {{ meetup.city }} | {% endblock %}
 
+{% block banner %}
+<div class="row banner">
+    <div class="marketing" id="index-banner">
+        <h1 class="leading">{{ meetup.name }} - {{ meetup.city }}</h1>
+    </div>  
+</div>
+{% endblock %}
+
 {% block content %}
 
 
 <!-- <img src="{{ meetup.logo }}" alt="{{ meetup.name }} - {{ meetup.city }}"> --> 
 
 
-<h1 class="leading">{{ meetup.name }} - {{ meetup.city }}</h1>
+
 
 <!-- <a class="btn btn-primary btn-large" href="/add?meetup_id={{ meetup.id }}">Add Slide</a> -->
     
-    <div id="dropzone">
+    <div id="dropzone" class="col-lg-6">
         <form action="/file-upload"
             class="dropzone"
             id="my-awesome-dropzone">
@@ -22,15 +30,15 @@
             </form>            
     </div>
 
-    
-<h2 class="leading">
-  {% if posts %}
-    Recent slides
-  {% else %}
-    Be the first one to upload slides for {{ meetup.name }}
-  {% endif %}
-</h2>
-<div id="hidden_field_for_meetup_id">{{ meetup.id }}</div>
-{% include "_posts.html" %}
-
+<div class="col-lg-6">    
+    <h2 class="leading">
+      {% if posts %}
+        Recent slides
+      {% else %}
+        <div class="upload-promo">Be the first speaker to upload slides for {{ meetup.name }} </div>
+      {% endif %}
+    </h2>
+    <div id="hidden_field_for_meetup_id">{{ meetup.id }}</div>
+    {% include "_posts.html" %}
+</div>
 {% endblock content %}
