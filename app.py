@@ -4,7 +4,7 @@
 import os
 import json
 import urlparse
-from datetime import datetime
+from datetime import datetime, date
 import random
 
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
@@ -94,6 +94,14 @@ def get_s3_filename(bucket_name, key):
 def image_filter(meetup_id):
     return str(10000 + int(meetup_id)%70)[-4:] + ".jpg" # since there are around 70 images
 
+
+def get_validated_date(d):
+    try:
+        return datetime.strptime(d, '%m/%d/%Y')
+    except:
+        return date.today()
+
+
 ################################
 ####### All router methods #####
 ################################
@@ -157,8 +165,10 @@ def add():
     desc = request.form.get('desc', 'No desc')
     author = request.form.get('author', 'A developer')
     user_id = request.form.get('user_id', 0)
+    post_date = request.form.get('post_date')
+    post_date = get_validated_date(post_date)
     meetup_id = int(request.form.get('meetup_id', 0))
-    p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id, author=author)
+    p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id, author=author, post_date=post_date)
     saved = p.save()
     post_id = p.id
     # store s3 file path

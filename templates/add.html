@@ -5,6 +5,7 @@
     $(document).ready(function() {
       $('#show_add_meetup').click(show_add_meetup);
       $('#add_meetup_wrapper button').click(add_meetup);
+      $( ".datepicker" ).datepicker();
       // $('.topbar .pull-right').dropdown();
       // $('.alert-message a.close').click(close_notification_alert);
      });
@@ -50,6 +51,12 @@
           <label for="textarea" class="control-label">Description</label>
           <div class="controls">
             <textarea rows="3" id="textarea" class="input-xlarge" name="desc"></textarea>
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="input02" class="control-label" >Event Date</label>
+          <div class="controls">
+            <input type="text" id="input02" class="input-xlarge datepicker" name='post_date'>
           </div>
         </div>
         <div class="control-group">

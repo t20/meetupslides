@@ -17,6 +17,7 @@ class Post(models.Model):
     user_id = models.IntegerField(required=True)
     author = models.Attribute(required=True)
     slides = models.ListField(str)
+    post_date = models.DateField(required=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
