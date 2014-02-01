@@ -1,5 +1,5 @@
 body{
-background:#f3f3f3;     
+background:#ffffff;     
 }
 .row {
 	margin-left: 0px;
@@ -178,7 +178,7 @@ h2.leading{
 }
 
 .banner{
-	background-color:#fff;
+	background-color:#f3f3f3;
 	padding-top:20px;
 	margin-top:-20px;
 	margin-bottom: 20px;
