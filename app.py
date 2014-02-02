@@ -279,24 +279,32 @@ def jobs():
 
 
 def save_post(request):
-    
+
     # Save all metadata associated with this file
     metadata = json.loads(request.form['metadata'])
     speaker_name = metadata["speaker_name"]
     presentation_title = metadata["presentation_title"]
     presentation_description = metadata["presentation_description"]
     meetup_id = int(metadata["meetup_id"])
-        
+
     title = presentation_title
     desc = presentation_description
     author = speaker_name
     user_id = request.form.get('user_id', 0)
-    
+
     p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id, author=author)
     p.save()
     post_id = p.id
-    
+
+    # Atleast one slide was saved.
+    # OK to showcase this meetup in homepage
+    m = get_meetup(meetup_id)
+    m.homepage = True
+    m.slide_count = get_slide_count(meetup_id)
+    m.save()
+
     return post_id
+
 
 @app.route('/file-upload',  methods=['POST'])
 def file_upload():

@@ -19,37 +19,33 @@
     <div id="meetup-list-title" class="col-lg-6">
         <h1 class="leading">Meetups and Presentations</h1>
     </div>
-          
+
     <div class="col-lg-2">
         <a class="btn btn-success btn-large" href="/meetup/add">Add Your Meetup Now!</a>
     </div>
   </div>
 
 <div class="row all-meetups-list">
-  <div class="container" id="meetup-container">  
-  {% for meetup in meetups %}                 
-        <div class="meetup-item">  
-               <div class="single-card">          
+  <div class="container" id="meetup-container">
+  {% for meetup in meetups %}
+        <div class="meetup-item">
+               <div class="single-card">
                     <a href="/meetup/{{ meetup.id }}">
                         <img class="meetup_logo_large" src="/static/img/avtars/{{ meetup.id | convert_to_image_id }}" height=150 width=197 />
-                        <div class="meetup-name-over-photo">                            
+                        <div class="meetup-name-over-photo">
                             {{ meetup.city }} - {{ meetup.name }}
-                        </div>                                
+                        </div>
                     </a>
                 </div>
                 <div class="meetup-info">
                    <p class="meetup-info-uploads">
-                    <span class="meetup-info-slides">Slides Uploaded : <span class="meetup-info-slides-normal">5</span>
+                   <span class="meetup-info-slides">Slides Uploaded : <span class="meetup-info-slides-normal">{{ meetup.slide_count|default(0, true) }}</span>
                    </p>
-
-                   
-                </div>                
-                
-             
+                </div>
         </div>
   {% endfor %}
   </div>
-</div>  
-  
+</div>
+
 
 {% endblock content %}

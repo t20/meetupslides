@@ -6,6 +6,9 @@ class Meetup(models.Model):
     desc = models.Attribute(required=False)
     website = models.Attribute(required=False)
     logo = models.Attribute(required=False)
+    status = models.BooleanField(default=True)
+    homepage = models.BooleanField(default=False)
+    slide_count = models.IntegerField(required=False, default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -18,6 +21,7 @@ class Post(models.Model):
     author = models.Attribute(required=True)
     slides = models.ListField(str)
     post_date = models.DateField(required=False)
+    status = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -53,8 +57,10 @@ def get_meetup(meetup_id):
 def get_meetups():
     return Meetup.objects.all()
 
+
 def get_top_metups():
     return Meetup.objects.all()
+
 
 def get_posts(meetup_id):
     return Post.objects.filter(meetup_id=meetup_id)
@@ -65,8 +71,14 @@ def get_post(post_id):
 
 
 def get_recent_posts(limit=10):
-    return Post.objects.all().limit(limit).order("-created")
+    return Post.objects.all().limit(limit).order("-post_date")
+
+
+def get_slide_count(meetup_id):
+    posts = get_posts(meetup_id)
+    return len(posts)
 
 
 def get_jobs():
     return Job.objects.all()
+

@@ -53,7 +53,7 @@
                 </div>
                 <div class="meetup-info">
                    <p class="meetup-info-uploads">
-                    <span class="meetup-info-slides">Slides Uploaded : <span class="meetup-info-slides-normal">5</span>
+                   <span class="meetup-info-slides">Slides Uploaded : <span class="meetup-info-slides-normal">{{ meetup.slide_count|default(0, true) }}</span>
                    </p>
                 </div>
         </div>
