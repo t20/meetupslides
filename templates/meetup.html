@@ -4,9 +4,14 @@
 
 {% block banner %}
 <div class="row banner">
-    <div class="marketing" id="index-banner">
-        <h1 class="leading">{{ meetup.name }} - {{ meetup.city }}</h1>
+   <div class="container">
+    <div class="col-lg-2"></div>
+    <div class="marketing col-lg-8" id="index-banner">
+        <h1 class="leading">{{ meetup.name }}</h1><br/>
+        <h2 class="leading-city">{{ meetup.city }}</h2>
     </div>  
+    <div class="col-lg-2"></div>
+   </div>
 </div>
 {% endblock %}
 

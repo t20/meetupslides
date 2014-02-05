@@ -12,11 +12,11 @@ background:#ffffff;
 
 .marketing h1 {
 margin: 20px 0 10px;
-font-size: 60px;
+font-size: 50px;
 font-weight: 200;
 line-height: 1;
 letter-spacing: -1px;
-color: #0088aa;
+
 }
 
 
@@ -52,8 +52,12 @@ background-size: 428px 406px;
 }
 
 h1.leading{
-   font-size: 36px;
-   color: #0088aa;            
+   font-size: 50px;            
+}
+
+h2.leading-city{			
+ margin-top: 0px;
+ margin-bottom: 0px;
 }
 
 h2.leading{
@@ -89,7 +93,7 @@ h2.leading{
 
 .meetup-item{
   width: 200px;
-  min-height:280px;
+  min-height:200px;
   min-width:250px;
   padding-right:20px;
   padding-left:20px
@@ -102,14 +106,6 @@ h2.leading{
   margin-left:60px;                  
 }
 
-
-.navbar {
-  min-height:100px;
-}
-
-.nav-container{
-  margin-left:60px;                 
-}
 
 .meetup-name-over-photo{
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(22,24,27,0)), color-stop(72px, rgba(22,24,27,0.7)), color-stop(100%, rgba(22,24,27,0.9)));
@@ -178,7 +174,7 @@ h2.leading{
 }
 
 .banner{
-	background-color:#f3f3f3;
+	background-color:#fffff3;
 	padding-top:20px;
 	margin-top:-20px;
 	margin-bottom: 20px;
@@ -201,3 +197,6 @@ h2.leading{
    color: #dd4814;
    font-weight:bold;	
 }
+
+
+
