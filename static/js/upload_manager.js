@@ -80,6 +80,9 @@ Dropzone.options.myAwesomeDropzone= {
                    '<div class="presentation-description validate-description presentation-details">',
                        '<textarea class="form-control" rows="3" id="textArea">A brief description of the talk.</textarea>',
                    '</div>',
+                   '<div class="presentation-date validate-date presentation-details">',
+                        '<input type="text" id="input02" class="form-control datepicker" name="post_date" value="Presentation date">',
+                    '<div>',    
                 '</div>'].join('\n'),
                                        
   init: function() {
@@ -126,6 +129,10 @@ Dropzone.options.myAwesomeDropzone= {
         value = additional_form_data[file.name];
         formdata.append(key, value);
         console.log("do something here and add additional fields");                                       
-    });                                     
+    });  
+    
+    this.on("addedfile", function(file){            
+        $(".datepicker").datepicker();                                    
+    });                                                                        
   }
 };
