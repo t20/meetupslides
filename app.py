@@ -355,11 +355,6 @@ def file_upload():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 0))
     
-    # Prefill meetups with a get or create
-    for meetup in DEFAULT_MEETUPS:
-        m = Meetup.objects.get_or_create(**meetup)
-        m.save()
-    
     if port:
         app.debug = False
         app.run(host='0.0.0.0', port=port)
