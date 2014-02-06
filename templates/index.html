@@ -47,17 +47,18 @@
                     <a href="/meetup/{{ meetup.id }}">
                         <img class="meetup_logo_large" src="/static/img/avtars/{{ meetup.id | convert_to_image_id }}" height=150 width=197 />
                         <div class="meetup-name-over-photo">                            
-                            {{ meetup.city }} - {{ meetup.name }}
+                            {{ meetup.name }}
                         </div>                                
                     </a>
                 </div>
-                {#
+                
                 <div class="meetup-info">
                    <p class="meetup-info-uploads">
-                   <span class="meetup-info-slides">Slides Uploaded : <span class="meetup-info-slides-normal">{{ meetup.slide_count|default(0, true) }}</span>
+                    {#<span class="meetup-info-slides">Slides Uploaded : <span class="meetup-info-slides-normal">{{ meetup.slide_count|default(0, true) }}</span>#}
+                     <span class="meetup-info-slides">{{ meetup.city }}</span>
                    </p>
                 </div>
-                #}
+                
         </div>
   {% endfor %}
   </div>

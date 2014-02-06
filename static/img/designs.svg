@@ -25,7 +25,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.24748738"
+     inkscape:zoom="1.4"
      inkscape:cx="379.55735"
      inkscape:cy="-152.34807"
      inkscape:document-units="px"
@@ -34,7 +34,7 @@
      inkscape:window-width="1335"
      inkscape:window-height="743"
      inkscape:window-x="74"
-     inkscape:window-y="0"
+     inkscape:window-y="322"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -71,7 +71,7 @@
        id="rect3007"
        width="1466.7416"
        height="1725.3405"
-       x="-195.96959"
+       x="-225.25531"
        y="228.07771" />
     <g
        id="g3805"
@@ -137,7 +137,8 @@
        id="g3927"
        inkscape:export-filename="/Users/mthangavelu/Documents/personal/development/meetupslides/static/img/logo.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       transform="matrix(0.67128578,0,0,0.67128578,160.736,394.82113)">
       <rect
          transform="matrix(0.99997062,-0.00766522,0.01493593,0.99988845,0,0)"
          y="1200.2867"
@@ -145,7 +146,7 @@
          height="1.6569947"
          width="19.863739"
          id="rect3822"
-         style="fill:#ffffff;stroke:#ffffff;stroke-width:1.07535672000000004;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1" />
+         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1.07535672;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       <rect
          transform="matrix(0.99994275,-0.01070001,0.01070001,0.99994275,0,0)"
          y="1202.6534"
@@ -153,7 +154,7 @@
          height="8.0044327"
          width="14.807348"
          id="rect3824"
-         style="fill:none;stroke:#ffffff;stroke-width:1.74200001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         style="fill:none;stroke:#ffffff;stroke-width:1.74199998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          inkscape:export-filename="/Users/mthangavelu/Documents/personal/development/meetupslides/static/img/logo.png"
          inkscape:export-xdpi="90"
          inkscape:export-ydpi="90" />
@@ -180,7 +181,7 @@
          height="0.12137171"
          width="12.495186"
          id="rect3830"
-         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2.26900001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2.26900005;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       <path
          inkscape:connector-curvature="0"
          id="path3818"

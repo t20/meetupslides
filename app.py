@@ -1,6 +1,6 @@
 ### Meetupslides
 ### https://github.com/teraom/meetupslides
-
+import time
 import os
 import json
 import urlparse
@@ -182,6 +182,7 @@ def add():
         s3_filename = upload_to_s3(filepath, BUCKET_NAME, post_id, ext, object_prefix='slide')
         os.remove(filepath)
         p.slides = [s3_filename]
+        p.s3_filename = s3_filename
         p.save()
         # except Exception as e:
         #     print 'Exception'
@@ -285,17 +286,20 @@ def save_post(request):
     speaker_name = metadata["speaker_name"]
     presentation_title = metadata["presentation_title"]
     presentation_description = metadata["presentation_description"]
+    presentation_date = metadata["presentation_date"]
+    
     meetup_id = int(metadata["meetup_id"])
 
     title = presentation_title
     desc = presentation_description
     author = speaker_name
     user_id = request.form.get('user_id', 0)
+    post_date = get_validated_date(presentation_date)
 
-    p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id, author=author)
+    p = Post(title=title, desc=desc, user_id=user_id, meetup_id=meetup_id, author=author, post_date=post_date)
     p.save()
     post_id = p.id
-
+    
     # Atleast one slide was saved.
     # OK to showcase this meetup in homepage
     m = get_meetup(meetup_id)
@@ -303,17 +307,11 @@ def save_post(request):
     m.slide_count = get_slide_count(meetup_id)
     m.save()
 
-    return post_id
+    return p
 
 
 @app.route('/file-upload',  methods=['POST'])
-def file_upload():
-    #posts = get_recent_posts()
-    #return render_template('index.html', posts=posts)
-    
-    post_id = save_post(request)
-    
-    
+def file_upload():        
     slides = request.files['file']
     if slides and allowed_file(slides.filename, ALLOWED_EXTENSIONS):
         filename = secure_filename(slides.filename)
@@ -321,14 +319,17 @@ def file_upload():
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         slides.save(filepath)
         ext = filename.rsplit('.', 1)[1]
-        s3_filename = upload_to_s3(filepath, BUCKET_NAME, post_id, ext, object_prefix='slide')
-        os.remove(filepath)
-        ##p.slides = [s3_filename]
-        ##p.save()
-        # except Exception as e:
-        #     print 'Exception'
-    # print 'Post saved?', saved
-    
+        
+        post = save_post(request) # Save the post in redis after upload
+        s3_filename = upload_to_s3(filepath, BUCKET_NAME, post.id, ext, object_prefix='slide')
+        
+        # Save the s3 file location to the post
+        post.s3_filename = s3_filename
+        post.save() 
+        
+        os.remove(filepath)    
+    else:
+        return jsonify(result=False)
 
     
     

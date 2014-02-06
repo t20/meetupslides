@@ -1,5 +1,5 @@
 body{
-background:#ffffff;     
+    background:#fffff3;     
 }
 .row {
 	margin-left: 0px;
@@ -12,7 +12,7 @@ background:#ffffff;
 
 .marketing h1 {
 margin: 20px 0 10px;
-font-size: 50px;
+font-size: 30px;
 font-weight: 200;
 line-height: 1;
 letter-spacing: -1px;
@@ -52,12 +52,13 @@ background-size: 428px 406px;
 }
 
 h1.leading{
-   font-size: 50px;            
+   font-size: 30px;            
 }
 
 h2.leading-city{			
  margin-top: 0px;
  margin-bottom: 0px;
+ font-size:15px;
 }
 
 h2.leading{
@@ -93,7 +94,7 @@ h2.leading{
 
 .meetup-item{
   width: 200px;
-  min-height:200px;
+  min-height:250px;
   min-width:250px;
   padding-right:20px;
   padding-left:20px
@@ -128,7 +129,7 @@ h2.leading{
     position: absolute;
     bottom: 0;
     left: 0;
-    font-size:18px;
+    font-size:16px;
 }
 
 .single-card{
@@ -136,7 +137,8 @@ h2.leading{
 }
 
 .meetup-info{    
-    background-color:#fff;                  
+    background-color:#fff; 
+    color:#777;                    
     width: 197px;
     position: relative;
     top: -5px;
@@ -144,11 +146,10 @@ h2.leading{
     border-bottom-right-radius: 5px;
     padding-top: 5px;
     padding-left: 5px;
-    padding-bottom: 5px;
-    border-bottom-color: #eee;
-    border-bottom: 1px solid #aaa;
-    border-left: 1px solid #aaa;
-    border-right: 1px solid #aaa;
+    padding-bottom: 5px;    
+    border-bottom: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
 }
 
 .meetup-info-uploads{
@@ -159,9 +160,8 @@ h2.leading{
 }
 
 .meetup-info-slides{
-    font-size: 15px;
-    font-family: helvetica,arial,sans-serif;
-    font-weight: bold;                   
+    font-size: 12px;
+    font-family: helvetica,arial,sans-serif;           
 }
 
 .meetup-info-slides-normal{
@@ -173,11 +173,19 @@ h2.leading{
                  
 }
 
-.banner{
-	background-color:#fffff3;
+.banner{	
 	padding-top:20px;
 	margin-top:-20px;
 	margin-bottom: 20px;
+	background-color: #1c2533;
+	background: -webkit-linear-gradient(70deg, #080f1f 30%, #2b4b5a 87%, #435e67 100%);
+	background: -o-linear-gradient(70deg, #080f1f 30%, #2b4b5a 87%, #435e67 100%);
+	background: -ms-linear-gradient(70deg, #080f1f 30%, #2b4b5a 87%, #435e67 100%);
+	background: -moz-linear-gradient(70deg, #080f1f 30%, #2b4b5a 87%, #435e67 100%);
+	background: linear-gradient(20deg, #080f1f 30%, #2b4b5a 87%, #435e67 100%);
+	background-attachment: fixed;
+	color: #fff;
+	text-align: center;	
 }
 
 
@@ -198,5 +206,9 @@ h2.leading{
    font-weight:bold;	
 }
 
+
+.add-meetup-button{
+  margin-bottom:40px;
+}
 
 

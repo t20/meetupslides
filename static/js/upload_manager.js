@@ -23,6 +23,7 @@ MeetupSlides = {
         //meetup_name_validation = MeetupSlides.textValidator('.validate-meetup-name', 'input', 'Meetup Name');
         title_validation = MeetupSlides.textValidator('.validate-title', 'input', 'Presentation title');
         description_validation = MeetupSlides.textValidator('.validate-description', 'textarea', 'A brief description of the talk.');
+        description_validation = MeetupSlides.textValidator('.validate-date', 'input', 'Presentation date');
                 
         if (speaker_validation == true  && title_validation == true && description_validation == true){
            return true;    
@@ -42,13 +43,15 @@ MeetupSlides = {
          var presentation_title= $('.presentation-title', $(this)).find('input').val();
          var presentation_name= $('.presentation-name', $(this)).find('input').val();    
          var presentation_description= $('.presentation-description', $(this)).find('textarea').val();
+         var presentation_date = $('.presentation-date', $(this)).find('input').val();
          
          var meetup_id= $('#hidden_field_for_meetup_id').html();  
                
-         console.log(file_name + speaker_name + presentation_title + presentation_description);
+         console.log(file_name + speaker_name + presentation_title + presentation_description + presentation_date);
          formData[file_name] =  JSON.stringify({"speaker_name":speaker_name, 
                                                 "presentation_title": presentation_title, 
                                                 "presentation_description": presentation_description,
+                                                "presentation_date": presentation_date,
                                                 "meetup_id": meetup_id });                                                    
      }); 
      return formData;                                  

@@ -1,3 +1,5 @@
+import json
+
 class Config(object):
     """Default config"""
     DEBUG = True
@@ -9,8 +11,14 @@ class Config(object):
     REDIS_HOST = 'localhost'
     
     UPLOAD_FOLDER = '/tmp/'
-    AWS_KEY = 'AWS KEY'
-    AWS_SECRET_KEY = 'AWS SECRET' 
+    
+    
+    # Read from external config
+    AWS_CONFIG = json.load(open("/etc/meetup_slides","r"))
+    AWS_KEY = AWS_CONFIG['AWS_ACCESS_KEY']
+    AWS_SECRET_KEY = AWS_CONFIG['AWS_SECRET_KEY']
+    
+     
     BUCKET_NAME = 'meetupslides_dev'
     LOGOS_BUCKET_NAME = 'meetupslides_logos'
     DYNAMO_DB = 'meetup_slides'

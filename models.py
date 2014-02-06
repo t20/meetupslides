@@ -20,6 +20,7 @@ class Post(models.Model):
     user_id = models.IntegerField(required=True)
     author = models.Attribute(required=True)
     slides = models.ListField(str)
+    s3_filename = models.Attribute(required=False)
     post_date = models.DateField(required=False)
     status = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
