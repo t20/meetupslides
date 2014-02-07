@@ -51,6 +51,16 @@ class Job(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 
+class Sponsor(models.Model):
+    company = models.Attribute(required=True)
+    title = models.Attribute(required=True)
+    link = models.Attribute(required=True)
+    meetup_id = models.IntegerField(required=True)
+    status = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
 def get_meetup(meetup_id):
     return Meetup.objects.get_by_id(meetup_id)
 
@@ -82,4 +92,8 @@ def get_slide_count(meetup_id):
 
 def get_jobs():
     return Job.objects.all()
+
+
+def get_sponsors(meetup_id):
+    return Sponsor.objects.filter(meetup_id=meetup_id)
 

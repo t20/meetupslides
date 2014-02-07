@@ -1,0 +1,5 @@
+<div class="slides-container">
+{% for sponsor in sponsors %}
+<div><img src="{{ sponsor.logo }}"  title="{{ sponsor.company }}"/><a href="{{ sponsor.link }}">{{ sponsor.title }} - {{ sponsor.company }}</a></div>
+{% endfor %}
+</div>
