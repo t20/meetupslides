@@ -2,7 +2,7 @@ Flask==0.8
 Flask-Admin==1.0.2
 Jinja2==2.6
 Werkzeug==0.8.2
-boto==2.2.2
+boto==2.23.0
 redis==2.6.0
 redisco==0.1.4
 simplejson==2.3.2
