@@ -37,7 +37,7 @@ Installing redis:
 http://redis.io/download
 
     $ mkvirtualenv meetupslides
-    $ git clone git@github.com:teraom/meetupslides.git
+    $ git clone git@github.com:t20/meetupslides.git
     $ cd meetupslides
     $ pip install -r requirements.txt
 

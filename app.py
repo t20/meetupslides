@@ -1,5 +1,5 @@
 ### Meetupslides
-### https://github.com/teraom/meetupslides
+### https://github.com/t20/meetupslides
 import time
 import os
 import json
