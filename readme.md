@@ -47,7 +47,7 @@ You may want to run redis server on a different tab.
 
 To run the application
     
-    $ python app.py
+    $ python meetup_slides.py
 
 If you need help with getting the dev environment up and running, please feel free to contact me via meetupslides.com/contact.
 

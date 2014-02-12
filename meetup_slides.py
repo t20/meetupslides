@@ -32,9 +32,10 @@ from default_meetups import DEFAULT_MEETUPS
 app = Flask(__name__)
 app.config.from_object('settings.Config')
 app.secret_key = app.config['APP_SECRET_KEY']
-# admin = Admin(app, index_view=Dashboard)
+
+# Admin views
 admin = Admin(app, name='Meetup Slides Admin')
-# admin.index_view = Dashboard
+admin.add_view(Dashboard(name='Dashboard'))
 
 # Load from config
 REDIS_HOST = app.config['REDIS_HOST']
@@ -56,9 +57,6 @@ else:
 
 ALLOWED_EXTENSIONS = set(('txt', 'pdf', 'ppt', 'pptx', 'zip', 'tar', 'rar'))
 ALLOWED_IMAGE_EXTENSIONS = set(('png', 'jpg'))
-
-# Admin views
-admin.add_view(Dashboard(name='Dashboard'))
 
 ################################
 ####### helper methods #########
@@ -125,12 +123,15 @@ def meetup_add():
         return render_template('add_meetup.html')
     name = request.form.get('meetup_name', 'No Name')
     city = request.form.get('meetup_city', 'No City')
-    desc = request.args.get('desc', '')
-    website = request.args.get('website', '')
+    desc = request.form.get('desc', '')
+    website = request.form.get('website', '')
     ajax = request.form.get('ajax', 0)
     m = Meetup(name=name, city=city, desc=desc, website=website)
     saved = m.save()
-    logo = request.files['logo']
+    try:
+        logo = request.files['logo']
+    except:
+        logo = None
     if logo and allowed_file(logo.filename, ALLOWED_IMAGE_EXTENSIONS):
         filename = secure_filename(logo.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)

@@ -33,4 +33,5 @@ class ProductionConfig(Config):
 
     APP_SECRET_KEY = ''
 
-
+class TestConfig(Config):
+    pass
